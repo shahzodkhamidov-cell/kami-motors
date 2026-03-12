@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Car {
+  id              String   @id @default(cuid())
+  vin             String   @unique
+  year            Int
+  make            String
+  model           String
+  trim            String?
+  bodyType        String
+  mileage         Int
+  price           Int
+  cleanTitleValue Int
+  color           String?
+  engine          String?
+  transmission    String?
+  drivetrain      String?
+  fuelType        String?
+  description     String?
+  features        String   @default("[]")
+  images          String   @default("[]")
+  status          String   @default("available")
+  featured        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  applications FinancingApplication[]
+}
+
+model FinancingApplication {
+  id               String   @id @default(cuid())
+  carId            String
+  car              Car      @relation(fields: [carId], references: [id])
+  firstName        String
+  lastName         String
+  email            String
+  phone            String
+  dateOfBirth      String?
+  address          String?
+  city             String?
+  state            String?
+  zipCode          String?
+  employmentStatus String
+  employer         String?
+  monthlyIncome    Int
+  creditScoreRange String
+  downPayment      Int
+  loanTerm         Int      @default(60)
+  additionalNotes  String?
+  status           String   @default("pending")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
