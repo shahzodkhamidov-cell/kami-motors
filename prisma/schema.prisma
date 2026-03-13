@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -24,6 +24,7 @@ model Car {
   drivetrain      String?
   fuelType        String?
   description     String?
+  numberOfOwners  Int?
   features        String   @default("[]")
   images          String   @default("[]")
   status          String   @default("available")

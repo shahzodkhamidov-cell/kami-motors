@@ -21,10 +21,10 @@ export default function DeleteCarButton({ carId }: { carId: string }) {
   return (
     <button
       onClick={handleDelete}
-      className={`transition-colors p-1.5 rounded-lg text-sm ${
+      className={`transition-colors p-1.5 text-sm ${
         confirming
           ? "bg-red-500 text-white"
-          : "text-gray-400 hover:text-red-400 hover:bg-red-500/10"
+          : "text-[var(--text-dim)] hover:text-red-500 hover:bg-red-500/10"
       }`}
       title={confirming ? "Click again to confirm" : "Delete"}
     >

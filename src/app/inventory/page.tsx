@@ -67,24 +67,24 @@ export default function InventoryPage() {
   );
 
   return (
-    <div className="pt-20 pb-16 min-h-screen bg-[#080807]">
+    <div className="pt-20 pb-16 min-h-screen bg-[var(--bg-primary)]">
       {/* Header */}
-      <section className="py-14 border-b border-[#2A2A26] mb-8">
+      <section className="py-14 border-b border-[var(--border)] mb-8">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-[#C9A84C]" />
-            <span className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase">Rebuilt Title Specialists</span>
+            <div className="w-8 h-px bg-[var(--gold)]" />
+            <span className="text-[var(--gold)] text-xs tracking-[0.3em] uppercase">Rebuilt Title Specialists</span>
           </div>
           <h1
-            className="text-[#F8EAD9] leading-none mb-3"
+            className="text-[var(--text-primary)] leading-none mb-3"
             style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "clamp(3rem, 8vw, 6rem)", letterSpacing: "0.03em" }}
           >
             OUR{" "}
-            <span style={{ background: "linear-gradient(135deg, #C9A84C, #E2CB7E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{ background: "linear-gradient(135deg, var(--gold), var(--gold-light))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               INVENTORY
             </span>
           </h1>
-          <p className="text-[#B0B0B8] max-w-xl">
+          <p className="text-[var(--text-muted)] max-w-xl">
             Quality rebuilt title vehicles — inspected, road-ready, and priced to save you thousands.
           </p>
         </div>
@@ -95,20 +95,20 @@ export default function InventoryPage() {
 
         {loading ? (
           <div className="flex justify-center items-center py-24">
-            <Loader2 className="w-8 h-8 text-[#C9A84C] animate-spin" />
+            <Loader2 className="w-8 h-8 text-[var(--gold)] animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-24">
-            <div className="w-16 h-16 border border-[#2A2A26] flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 border border-[var(--border)] flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl opacity-30">🚗</span>
             </div>
             <h3
-              className="text-[#F8EAD9] text-3xl leading-none mb-2"
+              className="text-[var(--text-primary)] text-3xl leading-none mb-2"
               style={{ fontFamily: "var(--font-bebas), sans-serif" }}
             >
               No Vehicles Found
             </h3>
-            <p className="text-[#6B6B6B] text-sm tracking-wide">Try adjusting your filters or search terms.</p>
+            <p className="text-[var(--text-dim)] text-sm tracking-wide">Try adjusting your filters or search terms.</p>
           </div>
         ) : (
           <>
@@ -116,18 +116,18 @@ export default function InventoryPage() {
             {available.length > 0 && (
               <>
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#C9A84C] rounded-full animate-pulse" />
+                  <div className="w-2 h-2 bg-[var(--gold)] rounded-full animate-pulse" />
                   <h2
-                    className="text-[#F8EAD9] text-xl leading-none"
+                    className="text-[var(--text-primary)] text-xl leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}
                   >
                     Available Now
                   </h2>
-                  <span className="text-[#6B6B6B] text-xs tracking-widest uppercase">({available.length})</span>
+                  <span className="text-[var(--text-dim)] text-xs tracking-widest uppercase">({available.length})</span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#2A2A26] mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--border)] mb-12">
                   {available.map((car) => (
-                    <div key={car.id} className="bg-[#080807]">
+                    <div key={car.id} className="bg-[var(--bg-primary)]">
                       <CarCard car={car} />
                     </div>
                   ))}
@@ -141,7 +141,7 @@ export default function InventoryPage() {
                 <div className="mb-6 flex items-center gap-3">
                   <Clock className="w-4 h-4 text-[#60a5fa]" />
                   <h2
-                    className="text-[#F8EAD9] text-xl leading-none"
+                    className="text-[var(--text-primary)] text-xl leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}
                   >
                     Coming Soon
@@ -150,9 +150,9 @@ export default function InventoryPage() {
                     In Preparation
                   </span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#2A2A26] mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--border)] mb-12">
                   {comingSoon.map((car) => (
-                    <div key={car.id} className="bg-[#080807]">
+                    <div key={car.id} className="bg-[var(--bg-primary)]">
                       <CarCard car={car} />
                     </div>
                   ))}
@@ -164,18 +164,18 @@ export default function InventoryPage() {
             {soldOrPending.length > 0 && (
               <>
                 <div className="mb-6 flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#6B6B6B] rounded-full" />
+                  <div className="w-2 h-2 bg-[var(--text-dim)] rounded-full" />
                   <h2
-                    className="text-[#6B6B6B] text-xl leading-none"
+                    className="text-[var(--text-dim)] text-xl leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}
                   >
                     Sold / Pending
                   </h2>
-                  <span className="text-[#6B6B6B] text-xs tracking-widest uppercase">({soldOrPending.length})</span>
+                  <span className="text-[var(--text-dim)] text-xs tracking-widest uppercase">({soldOrPending.length})</span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#2A2A26] opacity-50">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[var(--border)] opacity-50">
                   {soldOrPending.map((car) => (
-                    <div key={car.id} className="bg-[#080807]">
+                    <div key={car.id} className="bg-[var(--bg-primary)]">
                       <CarCard car={car} />
                     </div>
                   ))}

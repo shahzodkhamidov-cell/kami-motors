@@ -21,10 +21,13 @@ export default async function EditCarPage({ params }: { params: Promise<{ id: st
   return (
     <div className="p-6 lg:p-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-black text-white">
+        <h1
+          className="text-4xl leading-none text-[var(--text-primary)]"
+          style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.03em" }}
+        >
           Edit: {car.year} {car.make} {car.model}
         </h1>
-        <p className="text-gray-500 text-sm">Update vehicle details, pricing, or status.</p>
+        <p className="text-[var(--text-dim)] text-sm">Update vehicle details, pricing, or status.</p>
       </div>
       <CarForm car={car} mode="edit" />
     </div>

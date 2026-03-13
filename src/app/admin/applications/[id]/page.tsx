@@ -37,7 +37,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
     <div className="p-6 lg:p-8 max-w-3xl">
       <Link
         href="/admin/applications"
-        className="flex items-center gap-1 text-gray-400 hover:text-white text-sm mb-6 transition-colors"
+        className="flex items-center gap-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] text-sm mb-6 transition-colors"
       >
         <ChevronLeft className="w-4 h-4" />
         Back to Applications
@@ -45,30 +45,33 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
 
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-black text-white">
+          <h1
+            className="text-4xl leading-none text-[var(--text-primary)]"
+            style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.03em" }}
+          >
             {app.firstName} {app.lastName}
           </h1>
-          <p className="text-gray-500 text-sm">{app.email}</p>
+          <p className="text-[var(--text-dim)] text-sm">{app.email}</p>
         </div>
         <ApplicationStatusUpdater applicationId={app.id} currentStatus={app.status} />
       </div>
 
       {/* Vehicle */}
       {app.car && (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-5">
-          <h2 className="text-gray-400 text-xs font-medium uppercase tracking-wide mb-3">Vehicle</h2>
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5 mb-5">
+          <h2 className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-3">Vehicle</h2>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white font-bold">
+              <p className="text-[var(--text-primary)] font-bold">
                 {app.car.year} {app.car.make} {app.car.model}
               </p>
-              <p className="text-gray-500 text-sm">{app.car.vin}</p>
+              <p className="text-[var(--text-dim)] text-sm">{app.car.vin}</p>
             </div>
             <div className="text-right">
-              <p className="text-green-400 font-bold">{formatCurrency(app.car.price)}</p>
+              <p className="text-[var(--gold)] font-bold">{formatCurrency(app.car.price)}</p>
               <Link
                 href={`/admin/inventory/${app.car.id}/edit`}
-                className="text-gray-500 text-xs hover:text-green-400 transition-colors"
+                className="text-[var(--text-dim)] text-xs hover:text-[var(--gold)] transition-colors"
               >
                 View listing →
               </Link>
@@ -78,13 +81,13 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       )}
 
       {/* Application Details */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5 mb-5">
-        <h2 className="text-gray-400 text-xs font-medium uppercase tracking-wide mb-4">Application Details</h2>
+      <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5 mb-5">
+        <h2 className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-4">Application Details</h2>
         <div className="grid grid-cols-2 gap-y-4">
           {fields.map(({ label, value }) => (
             <div key={label}>
-              <p className="text-gray-500 text-xs">{label}</p>
-              <p className="text-white text-sm font-medium capitalize">{value}</p>
+              <p className="text-[var(--text-dim)] text-xs">{label}</p>
+              <p className="text-[var(--text-primary)] text-sm font-medium capitalize">{value}</p>
             </div>
           ))}
         </div>
@@ -92,9 +95,9 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
 
       {/* Notes */}
       {app.additionalNotes && (
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
-          <h2 className="text-gray-400 text-xs font-medium uppercase tracking-wide mb-3">Notes from Applicant</h2>
-          <p className="text-gray-300 text-sm leading-relaxed">{app.additionalNotes}</p>
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5">
+          <h2 className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-3">Notes from Applicant</h2>
+          <p className="text-[var(--text-muted)] text-sm leading-relaxed">{app.additionalNotes}</p>
         </div>
       )}
     </div>

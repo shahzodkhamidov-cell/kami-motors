@@ -24,33 +24,38 @@ export default function AdminSidebar() {
       {/* Mobile toggle */}
       <button
         onClick={() => setOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 bg-gray-800 border border-gray-700 text-white p-2 rounded-lg"
+        className="lg:hidden fixed top-4 left-4 z-50 bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] p-2"
       >
         <Menu className="w-5 h-5" />
       </button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-gray-900 border-r border-gray-800 flex flex-col z-40 transition-transform lg:translate-x-0 ${
+        className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-[var(--bg-card)] border-r border-[var(--border)] flex flex-col z-40 transition-transform lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="p-5 border-b border-gray-800 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-              <Car className="w-4 h-4 text-white" />
+        <div className="p-5 border-b border-[var(--border)] flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[var(--gold)] flex items-center justify-center">
+              <Car className="w-4 h-4 text-[#080807]" />
             </div>
             <div>
-              <p className="text-white font-bold text-sm">Kami Motors</p>
-              <p className="text-gray-500 text-xs">Admin Panel</p>
+              <p
+                className="text-[var(--text-primary)] text-lg leading-none tracking-widest"
+                style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+              >
+                KAMI<span className="text-[var(--gold)]">MOTORS</span>
+              </p>
+              <p className="text-[var(--text-dim)] text-[10px] tracking-[0.15em] uppercase">Admin Panel</p>
             </div>
           </div>
-          <button onClick={() => setOpen(false)} className="lg:hidden text-gray-400 hover:text-white">
+          <button onClick={() => setOpen(false)} className="lg:hidden text-[var(--text-muted)] hover:text-[var(--text-primary)]">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <nav className="flex-1 p-3 space-y-1">
+        <nav className="flex-1 p-3 space-y-0.5">
           {navItems.map(({ href, label, icon: Icon }) => {
             const active =
               href === "/admin/inventory/new"
@@ -61,10 +66,10 @@ export default function AdminSidebar() {
                 key={href}
                 href={href}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors border ${
                   active
-                    ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                    : "text-gray-400 hover:text-white hover:bg-gray-800"
+                    ? "bg-(--gold)/10 text-[var(--gold)] border-(--gold)/20"
+                    : "text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-2)] border-transparent"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />
@@ -74,17 +79,17 @@ export default function AdminSidebar() {
           })}
         </nav>
 
-        <div className="p-3 border-t border-gray-800">
+        <div className="p-3 border-t border-[var(--border)]">
           <button
             onClick={() => signOut({ callbackUrl: "/admin/login" })}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors w-full"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-[var(--text-muted)] hover:text-red-500 hover:bg-red-500/10 transition-colors w-full border border-transparent"
           >
             <LogOut className="w-4 h-4 shrink-0" />
             Sign Out
           </button>
           <Link
             href="/"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-500 hover:text-gray-300 transition-colors mt-1"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-[var(--text-dim)] hover:text-[var(--text-muted)] transition-colors mt-0.5"
           >
             ← View Website
           </Link>

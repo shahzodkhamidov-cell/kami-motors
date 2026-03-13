@@ -33,22 +33,32 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
-            <Car className="w-7 h-7 text-white" />
+          <div className="w-14 h-14 bg-[var(--gold)] flex items-center justify-center mx-auto mb-4">
+            <Car className="w-7 h-7 text-[#080807]" />
           </div>
-          <h1 className="text-2xl font-black text-white">Kami Motors</h1>
-          <p className="text-gray-500 text-sm">Admin Panel</p>
+          <h1
+            className="text-4xl leading-none text-[var(--text-primary)] tracking-widest"
+            style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+          >
+            KAMI<span className="text-[var(--gold)]">MOTORS</span>
+          </h1>
+          <p className="text-[var(--text-dim)] text-xs tracking-[0.2em] uppercase mt-1">Admin Panel</p>
         </div>
 
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-          <h2 className="text-white font-bold text-lg mb-5">Sign In</h2>
+        <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">
+          <h2
+            className="text-[var(--text-primary)] text-2xl leading-none mb-5 tracking-wide"
+            style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}
+          >
+            Sign In
+          </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1">Email</label>
+              <label className="block text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-1.5">Email</label>
               <input
                 type="email"
                 value={email}
@@ -56,11 +66,11 @@ export default function AdminLoginPage() {
                 required
                 autoComplete="email"
                 placeholder="admin@kamimotors.com"
-                className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 text-sm focus:border-green-500 transition-colors"
+                className="w-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text-primary)] px-3 py-2.5 text-sm focus:border-[var(--gold)] transition-colors"
               />
             </div>
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1">Password</label>
+              <label className="block text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-1.5">Password</label>
               <div className="relative">
                 <input
                   type={showPw ? "text" : "password"}
@@ -69,12 +79,12 @@ export default function AdminLoginPage() {
                   required
                   autoComplete="current-password"
                   placeholder="••••••••"
-                  className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 pr-10 text-sm focus:border-green-500 transition-colors"
+                  className="w-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text-primary)] px-3 py-2.5 pr-10 text-sm focus:border-[var(--gold)] transition-colors"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPw(!showPw)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-dim)] hover:text-[var(--text-primary)] transition-colors"
                 >
                   {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -82,7 +92,7 @@ export default function AdminLoginPage() {
             </div>
 
             {error && (
-              <p className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
+              <p className="text-red-500 text-sm bg-red-500/10 border border-red-500/20 px-3 py-2">
                 {error}
               </p>
             )}
@@ -90,7 +100,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 disabled:bg-green-700 text-white font-bold py-3 rounded-xl text-sm transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-(--gold)/40 text-[#080807] font-bold py-3 text-sm tracking-widest uppercase transition-colors"
             >
               {loading ? (
                 <>

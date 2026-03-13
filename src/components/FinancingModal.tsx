@@ -79,29 +79,29 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
   };
 
   const inputClass =
-    "w-full bg-[#0D0D0B] border border-[#2A2A26] text-[#F8EAD9] px-3 py-2.5 text-sm focus:border-[#C9A84C] transition-colors placeholder-[#6B6B6B]";
-  const labelClass = "block text-[#6B6B6B] text-[10px] tracking-widest uppercase font-medium mb-1.5";
+    "w-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text-primary)] px-3 py-2.5 text-sm focus:border-[var(--gold)] transition-colors placeholder-[var(--text-dim)]";
+  const labelClass = "block text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-1.5";
   const errorClass = "text-red-400 text-xs mt-1";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative bg-[#111110] border border-[#2A2A26] w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="relative bg-[var(--bg-card)] border border-[var(--border)] w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 bg-[#111110] border-b border-[#2A2A26] px-6 py-4 flex items-center justify-between z-10">
+        <div className="sticky top-0 bg-[var(--bg-card)] border-b border-[var(--border)] px-6 py-4 flex items-center justify-between z-10">
           <div>
             <h2
-              className="text-[#F8EAD9] text-2xl leading-none"
+              className="text-[var(--text-primary)] text-2xl leading-none"
               style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}
             >
               Financing Application
             </h2>
-            <p className="text-[#6B6B6B] text-xs tracking-wide mt-0.5">
+            <p className="text-[var(--text-dim)] text-xs tracking-wide mt-0.5">
               {car.year} {car.make} {car.model} — {formatCurrency(car.price)}
             </p>
           </div>
-          <button onClick={onClose} className="text-[#6B6B6B] hover:text-[#F8EAD9] transition-colors p-1">
+          <button onClick={onClose} className="text-[var(--text-dim)] hover:text-[var(--text-primary)] transition-colors p-1">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -109,22 +109,22 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
         <div className="p-6">
           {submitted ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 border border-[#C9A84C]/30 bg-[#C9A84C]/5 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-[#C9A84C]" />
+              <div className="w-16 h-16 border border-(--gold)/30 bg-(--gold)/5 flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-[var(--gold)]" />
               </div>
               <h3
-                className="text-[#F8EAD9] text-3xl leading-none mb-2"
+                className="text-[var(--text-primary)] text-3xl leading-none mb-2"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
                 Application Submitted!
               </h3>
-              <p className="text-[#B0B0B8] text-sm mb-6">
+              <p className="text-[var(--text-muted)] text-sm mb-6">
                 We&apos;ve received your application for the {car.year} {car.make} {car.model}.
                 Our team will contact you within 24 hours.
               </p>
               <button
                 onClick={onClose}
-                className="bg-[#C9A84C] hover:bg-[#E2CB7E] text-[#080807] font-bold px-6 py-2.5 text-sm tracking-widest uppercase transition-colors"
+                className="bg-[var(--gold)] hover:bg-[var(--gold-light)] text-[#080807] font-bold px-6 py-2.5 text-sm tracking-widest uppercase transition-colors"
               >
                 Close
               </button>
@@ -138,20 +138,20 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
                     <div
                       className={`w-7 h-7 flex items-center justify-center text-xs font-bold shrink-0 border ${
                         step >= s
-                          ? "bg-[#C9A84C] border-[#C9A84C] text-[#080807]"
-                          : "bg-transparent border-[#2A2A26] text-[#6B6B6B]"
+                          ? "bg-[var(--gold)] border-[var(--gold)] text-[#080807]"
+                          : "bg-transparent border-[var(--border)] text-[var(--text-dim)]"
                       }`}
                     >
                       {s}
                     </div>
-                    <div className={`h-px flex-1 ${s < 3 ? (step > s ? "bg-[#C9A84C]" : "bg-[#2A2A26]") : "hidden"}`} />
+                    <div className={`h-px flex-1 ${s < 3 ? (step > s ? "bg-[var(--gold)]" : "bg-[var(--border)]") : "hidden"}`} />
                   </div>
                 ))}
               </div>
 
               {step === 1 && (
                 <>
-                  <h3 className="text-[#C9A84C] text-xl leading-none mb-4" style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Personal Information</h3>
+                  <h3 className="text-[var(--gold)] text-xl leading-none mb-4" style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Personal Information</h3>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className={labelClass}>First Name *</label>
@@ -201,7 +201,7 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
 
               {step === 2 && (
                 <>
-                  <h3 className="text-[#C9A84C] text-xl leading-none mb-4" style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Employment & Income</h3>
+                  <h3 className="text-[var(--gold)] text-xl leading-none mb-4" style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Employment & Income</h3>
                   <div>
                     <label className={labelClass}>Employment Status *</label>
                     <select {...register("employmentStatus")} className={inputClass}>
@@ -232,7 +232,7 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
 
               {step === 3 && (
                 <>
-                  <h3 className="text-[#C9A84C] text-xl leading-none mb-4" style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Loan Details</h3>
+                  <h3 className="text-[var(--gold)] text-xl leading-none mb-4" style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Loan Details</h3>
                   <div>
                     <label className={labelClass}>Credit Score Range *</label>
                     <select {...register("creditScoreRange")} className={inputClass}>
@@ -287,7 +287,7 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
                   <button
                     type="button"
                     onClick={() => setStep(step - 1)}
-                    className="flex-1 bg-[#1A1A18] border border-[#2A2A26] hover:border-[#C9A84C]/30 text-[#B0B0B8] hover:text-[#F8EAD9] font-medium py-3 text-xs tracking-widest uppercase transition-colors"
+                    className="flex-1 bg-[var(--bg-card-2)] border border-[var(--border)] hover:border-(--gold)/30 text-[var(--text-muted)] hover:text-[var(--text-primary)] font-medium py-3 text-xs tracking-widest uppercase transition-colors"
                   >
                     Back
                   </button>
@@ -296,7 +296,7 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
                   <button
                     type="button"
                     onClick={() => setStep(step + 1)}
-                    className="flex-1 bg-[#C9A84C] hover:bg-[#E2CB7E] text-[#080807] font-bold py-3 text-xs tracking-widest uppercase transition-colors"
+                    className="flex-1 bg-[var(--gold)] hover:bg-[var(--gold-light)] text-[#080807] font-bold py-3 text-xs tracking-widest uppercase transition-colors"
                   >
                     Continue
                   </button>
@@ -304,7 +304,7 @@ export default function FinancingModal({ car, isOpen, onClose }: FinancingModalP
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 bg-[#C9A84C] hover:bg-[#E2CB7E] disabled:bg-[#C9A84C]/40 disabled:cursor-not-allowed text-[#080807] font-bold py-3 text-xs tracking-widest uppercase transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-(--gold)/40 disabled:cursor-not-allowed text-[#080807] font-bold py-3 text-xs tracking-widest uppercase transition-colors flex items-center justify-center gap-2"
                   >
                     {loading ? (
                       <>

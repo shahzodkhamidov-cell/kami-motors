@@ -69,6 +69,7 @@ export async function POST(request: NextRequest) {
       drivetrain: body.drivetrain || null,
       fuelType: body.fuelType || null,
       description: body.description || null,
+      numberOfOwners: body.numberOfOwners != null ? Number(body.numberOfOwners) : null,
       features: JSON.stringify(body.features || []),
       images: JSON.stringify(body.images || []),
       status: body.status || "available",

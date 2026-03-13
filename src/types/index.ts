@@ -15,6 +15,7 @@ export interface Car {
   drivetrain?: string | null;
   fuelType?: string | null;
   description?: string | null;
+  numberOfOwners?: number | null;
   features: string[];
   images: string[];
   status: string;

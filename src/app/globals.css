@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ─── Apex Design System ─────────────────────────────────────── */
+/* ─── Apex Design System — Dark (default) ───────────────────── */
 :root {
   /* Backgrounds */
   --bg-primary:   #080807;
@@ -20,6 +20,24 @@
   /* Border */
   --border:       #2A2A26;
   --border-gold:  rgba(201, 168, 76, 0.3);
+}
+
+/* ─── Light Theme Override ───────────────────────────────────── */
+[data-theme="light"] {
+  --bg-primary:   #FAF8F3;
+  --bg-card:      #FFFFFF;
+  --bg-card-2:    #F0EDE4;
+
+  --gold:         #B8922E;
+  --gold-light:   #D4AA50;
+  --gold-dark:    #9A7520;
+
+  --text-primary: #1A1B10;
+  --text-muted:   #9E8F6E;
+  --text-dim:     #7A6B4E;
+
+  --border:       #E0D8C3;
+  --border-gold:  rgba(184, 146, 46, 0.3);
 }
 
 @theme inline {
@@ -55,21 +73,21 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Custom Scrollbar ───────────────────────────────────────── */
 ::-webkit-scrollbar        { width: 5px; }
-::-webkit-scrollbar-track  { background: #111110; }
-::-webkit-scrollbar-thumb  { background: #C9A84C; border-radius: 4px; }
+::-webkit-scrollbar-track  { background: var(--bg-card); }
+::-webkit-scrollbar-thumb  { background: var(--gold); border-radius: 4px; }
 
 /* ─── Utilities ──────────────────────────────────────────────── */
 .font-display { font-family: var(--font-bebas), sans-serif; letter-spacing: 0.02em; }
 
 .gradient-gold {
-  background: linear-gradient(135deg, #C9A84C, #E2CB7E);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gold-glow   { box-shadow: 0 0 24px rgba(201, 168, 76, 0.25); }
-.card-glow   { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6); }
+.gold-glow   { box-shadow: 0 0 24px color-mix(in srgb, var(--gold) 25%, transparent); }
+.card-glow   { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); }
 
 /* ─── Car Card ───────────────────────────────────────────────── */
 .car-card {
@@ -77,8 +95,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .car-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 24px rgba(201,168,76,0.12);
-  border-color: rgba(201, 168, 76, 0.35) !important;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.2), 0 0 24px color-mix(in srgb, var(--gold) 12%, transparent);
+  border-color: color-mix(in srgb, var(--gold) 35%, transparent) !important;
 }
 
 /* ─── Savings Badge pulse ────────────────────────────────────── */
@@ -91,8 +109,8 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Focus ring ─────────────────────────────────────────────── */
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: #C9A84C;
-  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.18);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--gold) 18%, transparent);
 }
 
 /* ─── Carousel ───────────────────────────────────────────────── */

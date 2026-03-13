@@ -43,7 +43,7 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
         <div className="carousel-slide grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[560px]" key={car.id}>
 
           {/* Left — image */}
-          <div className="relative bg-[#111110] overflow-hidden min-h-[300px] lg:min-h-[560px]">
+          <div className="relative bg-[var(--bg-card)] overflow-hidden min-h-[300px] lg:min-h-[560px]">
             {car.images[0] ? (
               <Image
                 src={car.images[0]}
@@ -54,27 +54,27 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-[#111110]">
+              <div className="absolute inset-0 flex items-center justify-center bg-[var(--bg-card)]">
                 <span className="text-8xl opacity-20">🚗</span>
               </div>
             )}
-            {/* Gold overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#080807]/60 hidden lg:block" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080807]/80 via-transparent to-transparent lg:hidden" />
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-(--bg-primary)/60 hidden lg:block" />
+            <div className="absolute inset-0 bg-gradient-to-t from-(--bg-primary)/80 via-transparent to-transparent lg:hidden" />
 
             {/* Badges */}
             <div className="absolute top-4 left-4 flex gap-2">
-              <span className="bg-[#C9A84C] text-[#080807] text-xs font-bold px-2.5 py-1 tracking-widest uppercase">
+              <span className="bg-[var(--gold)] text-[#080807] text-xs font-bold px-2.5 py-1 tracking-widest uppercase">
                 Featured
               </span>
-              <span className="bg-[#080807]/80 backdrop-blur text-[#B0B0B8] text-xs px-2.5 py-1 border border-[#2A2A26] tracking-wide">
+              <span className="bg-(--bg-primary)/80 backdrop-blur text-[var(--text-muted)] text-xs px-2.5 py-1 border border-[var(--border)] tracking-wide">
                 Rebuilt Title
               </span>
             </div>
 
             {/* Savings badge */}
             {savings > 0 && (
-              <div className="absolute top-4 right-4 bg-[#C9A84C] text-[#080807] text-center px-3 py-2 savings-badge">
+              <div className="absolute top-4 right-4 bg-[var(--gold)] text-[#080807] text-center px-3 py-2 savings-badge">
                 <p className="text-xs font-bold leading-none tracking-widest uppercase">Save</p>
                 <p className="text-2xl font-black leading-tight">{savingsPct}%</p>
               </div>
@@ -82,19 +82,19 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
           </div>
 
           {/* Right — info */}
-          <div className="bg-[#080807] flex flex-col justify-center px-8 lg:px-12 py-10 lg:py-16">
-            <p className="text-[#C9A84C] text-xs tracking-[0.25em] uppercase mb-3">
+          <div className="bg-[var(--bg-primary)] flex flex-col justify-center px-8 lg:px-12 py-10 lg:py-16">
+            <p className="text-[var(--gold)] text-xs tracking-[0.25em] uppercase mb-3">
               {car.bodyType} · {car.year}
             </p>
 
             <h2
-              className="text-5xl lg:text-6xl leading-none text-[#F8EAD9] mb-2"
+              className="text-5xl lg:text-6xl leading-none text-[var(--text-primary)] mb-2"
               style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.03em" }}
             >
               {car.make}
             </h2>
             <h3
-              className="text-3xl lg:text-4xl leading-none text-[#C9A84C] mb-6"
+              className="text-3xl lg:text-4xl leading-none text-[var(--gold)] mb-6"
               style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.03em" }}
             >
               {car.model} {car.trim && `· ${car.trim}`}
@@ -102,29 +102,29 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
 
             {/* Specs row */}
             <div className="flex gap-5 mb-8">
-              <div className="flex items-center gap-1.5 text-[#B0B0B8] text-sm">
-                <Gauge className="w-3.5 h-3.5 text-[#C9A84C]" />
+              <div className="flex items-center gap-1.5 text-[var(--text-muted)] text-sm">
+                <Gauge className="w-3.5 h-3.5 text-[var(--gold)]" />
                 {formatMileage(car.mileage)}
               </div>
-              <div className="flex items-center gap-1.5 text-[#B0B0B8] text-sm">
-                <Calendar className="w-3.5 h-3.5 text-[#C9A84C]" />
+              <div className="flex items-center gap-1.5 text-[var(--text-muted)] text-sm">
+                <Calendar className="w-3.5 h-3.5 text-[var(--gold)]" />
                 {car.year}
               </div>
               {car.fuelType && (
-                <div className="flex items-center gap-1.5 text-[#B0B0B8] text-sm">
-                  <Fuel className="w-3.5 h-3.5 text-[#C9A84C]" />
+                <div className="flex items-center gap-1.5 text-[var(--text-muted)] text-sm">
+                  <Fuel className="w-3.5 h-3.5 text-[var(--gold)]" />
                   {car.fuelType}
                 </div>
               )}
             </div>
 
             {/* Price block */}
-            <div className="border border-[#2A2A26] bg-[#111110] p-5 mb-6">
+            <div className="border border-[var(--border)] bg-[var(--bg-card)] p-5 mb-6">
               <div className="flex items-end justify-between">
                 <div>
-                  <p className="text-[#6B6B6B] text-xs tracking-widest uppercase mb-1">Our Price</p>
+                  <p className="text-[var(--text-dim)] text-xs tracking-widest uppercase mb-1">Our Price</p>
                   <p
-                    className="text-4xl text-[#C9A84C] leading-none"
+                    className="text-4xl text-[var(--gold)] leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
                     {formatCurrency(car.price)}
@@ -132,9 +132,9 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
                 </div>
                 {savings > 0 && (
                   <div className="text-right">
-                    <p className="text-[#6B6B6B] text-xs tracking-wide mb-1">Clean Title Est.</p>
-                    <p className="text-[#6B6B6B] text-base line-through">{formatCurrency(car.cleanTitleValue)}</p>
-                    <div className="flex items-center gap-1 text-[#C9A84C] justify-end mt-0.5">
+                    <p className="text-[var(--text-dim)] text-xs tracking-wide mb-1">Clean Title Est.</p>
+                    <p className="text-[var(--text-dim)] text-base line-through">{formatCurrency(car.cleanTitleValue)}</p>
+                    <div className="flex items-center gap-1 text-[var(--gold)] justify-end mt-0.5">
                       <TrendingDown className="w-3.5 h-3.5" />
                       <p className="text-sm font-bold">Save {formatCurrency(savings)}</p>
                     </div>
@@ -147,13 +147,13 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
             <div className="flex gap-3">
               <button
                 onClick={() => setModalCar(car)}
-                className="flex-1 bg-[#C9A84C] hover:bg-[#E2CB7E] text-[#080807] font-bold py-3.5 text-sm tracking-widest uppercase transition-colors"
+                className="flex-1 bg-[var(--gold)] hover:bg-[var(--gold-light)] text-[#080807] font-bold py-3.5 text-sm tracking-widest uppercase transition-colors"
               >
                 Apply for Financing
               </button>
               <Link
                 href={`/inventory/${car.id}`}
-                className="flex-1 border border-[#C9A84C]/40 hover:border-[#C9A84C] text-[#C9A84C] hover:bg-[#C9A84C]/5 font-semibold py-3.5 text-sm tracking-widest uppercase text-center transition-all"
+                className="flex-1 border border-(--gold)/40 hover:border-[var(--gold)] text-[var(--gold)] hover:bg-(--gold)/5 font-semibold py-3.5 text-sm tracking-widest uppercase text-center transition-all"
               >
                 View Details
               </Link>
@@ -166,13 +166,13 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
           <>
             <button
               onClick={prev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#080807]/80 border border-[#2A2A26] hover:border-[#C9A84C]/50 text-[#B0B0B8] hover:text-[#C9A84C] flex items-center justify-center transition-all backdrop-blur z-10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-(--bg-primary)/80 border border-[var(--border)] hover:border-(--gold)/50 text-[var(--text-muted)] hover:text-[var(--gold)] flex items-center justify-center transition-all backdrop-blur z-10"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={next}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-[#080807]/80 border border-[#2A2A26] hover:border-[#C9A84C]/50 text-[#B0B0B8] hover:text-[#C9A84C] flex items-center justify-center transition-all backdrop-blur z-10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 bg-(--bg-primary)/80 border border-[var(--border)] hover:border-(--gold)/50 text-[var(--text-muted)] hover:text-[var(--gold)] flex items-center justify-center transition-all backdrop-blur z-10"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -188,8 +188,8 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
                 onClick={() => setCurrent(i)}
                 className={`transition-all rounded-full ${
                   i === current
-                    ? "w-8 h-2 bg-[#C9A84C]"
-                    : "w-2 h-2 bg-[#2A2A26] hover:bg-[#C9A84C]/50"
+                    ? "w-8 h-2 bg-[var(--gold)]"
+                    : "w-2 h-2 bg-[var(--border)] hover:bg-(--gold)/50"
                 }`}
               />
             ))}
@@ -205,14 +205,14 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
                 onClick={() => setCurrent(i)}
                 className={`relative shrink-0 w-24 h-16 overflow-hidden transition-all border-2 ${
                   i === current
-                    ? "border-[#C9A84C] opacity-100"
+                    ? "border-[var(--gold)] opacity-100"
                     : "border-transparent opacity-50 hover:opacity-75"
                 }`}
               >
                 {c.images[0] ? (
                   <Image src={c.images[0]} alt="" fill className="object-cover" sizes="96px" />
                 ) : (
-                  <div className="w-full h-full bg-[#1A1A18] flex items-center justify-center text-[#6B6B6B] text-xs">
+                  <div className="w-full h-full bg-[var(--bg-card-2)] flex items-center justify-center text-[var(--text-dim)] text-xs">
                     {c.year}
                   </div>
                 )}

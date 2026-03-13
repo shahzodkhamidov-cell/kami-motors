@@ -84,19 +84,19 @@ export default function ReviewsCarousel() {
   const review = reviews[current];
 
   return (
-    <section className="py-20 bg-[#0A0A09]">
+    <section className="py-20 bg-[var(--bg-card-2)]">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
-            <p className="text-[#C9A84C] text-xs tracking-[0.25em] uppercase mb-3">Testimonials</p>
+            <p className="text-[var(--gold)] text-xs tracking-[0.25em] uppercase mb-3">Testimonials</p>
             <h2
-              className="text-5xl sm:text-6xl leading-none text-[#F8EAD9]"
+              className="text-5xl sm:text-6xl leading-none text-[var(--text-primary)]"
               style={{ fontFamily: "var(--font-bebas), sans-serif" }}
             >
               WHAT OUR<br />
-              <span className="text-[#C9A84C]">CUSTOMERS SAY</span>
+              <span className="text-[var(--gold)]">CUSTOMERS SAY</span>
             </h2>
           </div>
 
@@ -105,7 +105,7 @@ export default function ReviewsCarousel() {
             href={FACEBOOK_REVIEWS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 border border-[#2A2A26] hover:border-[#1877F2]/50 bg-[#111110] hover:bg-[#1877F2]/5 px-5 py-3.5 transition-all self-start sm:self-auto"
+            className="group flex items-center gap-3 border border-[var(--border)] hover:border-[#1877F2]/50 bg-[var(--bg-card)] hover:bg-[#1877F2]/5 px-5 py-3.5 transition-all self-start sm:self-auto"
           >
             {/* Facebook "F" icon */}
             <div className="w-8 h-8 bg-[#1877F2] flex items-center justify-center rounded-sm shrink-0">
@@ -117,10 +117,10 @@ export default function ReviewsCarousel() {
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-[#C9A84C] text-[#C9A84C]" />
+                    <Star key={i} className="w-3 h-3 fill-[var(--gold)] text-[var(--gold)]" />
                   ))}
                 </div>
-                <span className="text-[#F8EAD9] text-sm font-bold">4.9</span>
+                <span className="text-[var(--text-primary)] text-sm font-bold">4.9</span>
                 <div className="flex items-center gap-1 bg-[#1877F2]/20 border border-[#1877F2]/30 rounded px-1.5 py-0.5 ml-1">
                   <svg viewBox="0 0 24 24" className="w-3 h-3 fill-[#1877F2]">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -128,7 +128,7 @@ export default function ReviewsCarousel() {
                   <span className="text-[#1877F2] text-[10px] font-bold tracking-wide">Verified</span>
                 </div>
               </div>
-              <p className="text-[#6B6B6B] text-xs mt-0.5 group-hover:text-[#B0B0B8] transition-colors flex items-center gap-1">
+              <p className="text-[var(--text-dim)] text-xs mt-0.5 group-hover:text-[var(--text-muted)] transition-colors flex items-center gap-1">
                 See all reviews on Facebook
                 <ExternalLink className="w-3 h-3" />
               </p>
@@ -144,40 +144,40 @@ export default function ReviewsCarousel() {
           <div className="carousel-slide grid grid-cols-1 lg:grid-cols-3 gap-6" key={current}>
 
             {/* Main featured review */}
-            <div className="lg:col-span-2 bg-[#111110] border border-[#2A2A26] p-8 sm:p-10 relative">
-              <Quote className="absolute top-6 right-6 w-12 h-12 text-[#C9A84C]/10" />
+            <div className="lg:col-span-2 bg-[var(--bg-card)] border border-[var(--border)] p-8 sm:p-10 relative">
+              <Quote className="absolute top-6 right-6 w-12 h-12 text-(--gold)/10" />
 
               <div className="flex gap-0.5 mb-5">
                 {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#C9A84C] text-[#C9A84C]" />
+                  <Star key={i} className="w-4 h-4 fill-[var(--gold)] text-[var(--gold)]" />
                 ))}
               </div>
 
-              <p className="text-[#F8EAD9] text-lg sm:text-xl leading-relaxed mb-6 italic font-light">
+              <p className="text-[var(--text-primary)] text-lg sm:text-xl leading-relaxed mb-6 italic font-light">
                 &ldquo;{review.text}&rdquo;
               </p>
 
-              <div className="border border-[#C9A84C]/20 bg-[#C9A84C]/5 inline-flex items-center gap-3 px-4 py-2 mb-6">
+              <div className="border border-(--gold)/20 bg-(--gold)/5 inline-flex items-center gap-3 px-4 py-2 mb-6">
                 <div>
-                  <p className="text-[#6B6B6B] text-[10px] tracking-widest uppercase">Saved</p>
+                  <p className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase">Saved</p>
                   <p
-                    className="text-[#C9A84C] text-2xl leading-none"
+                    className="text-[var(--gold)] text-2xl leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
                     {review.savings}
                   </p>
                 </div>
-                <div className="w-px h-8 bg-[#2A2A26]" />
-                <p className="text-[#B0B0B8] text-xs">{review.car}</p>
+                <div className="w-px h-8 bg-[var(--border)]" />
+                <p className="text-[var(--text-muted)] text-xs">{review.car}</p>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#C9A84C]/10 border border-[#C9A84C]/20 flex items-center justify-center text-[#C9A84C] font-bold text-sm">
+                <div className="w-10 h-10 bg-(--gold)/10 border border-(--gold)/20 flex items-center justify-center text-[var(--gold)] font-bold text-sm">
                   {review.initials}
                 </div>
                 <div>
-                  <p className="text-[#F8EAD9] text-sm font-semibold">{review.name}</p>
-                  <p className="text-[#6B6B6B] text-xs">{review.location} · {review.date}</p>
+                  <p className="text-[var(--text-primary)] text-sm font-semibold">{review.name}</p>
+                  <p className="text-[var(--text-dim)] text-xs">{review.location} · {review.date}</p>
                 </div>
               </div>
             </div>
@@ -188,19 +188,19 @@ export default function ReviewsCarousel() {
                 <button
                   key={idx}
                   onClick={() => setCurrent(reviews.indexOf(r))}
-                  className="text-left bg-[#111110] border border-[#2A2A26] hover:border-[#C9A84C]/30 p-4 transition-all"
+                  className="text-left bg-[var(--bg-card)] border border-[var(--border)] hover:border-(--gold)/30 p-4 transition-all"
                 >
                   <div className="flex gap-0.5 mb-2">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-[#C9A84C] text-[#C9A84C]" />
+                      <Star key={i} className="w-3 h-3 fill-[var(--gold)] text-[var(--gold)]" />
                     ))}
                   </div>
-                  <p className="text-[#B0B0B8] text-xs leading-relaxed line-clamp-2 mb-2">
+                  <p className="text-[var(--text-muted)] text-xs leading-relaxed line-clamp-2 mb-2">
                     &ldquo;{r.text}&rdquo;
                   </p>
                   <div className="flex items-center justify-between">
-                    <p className="text-[#F8EAD9] text-xs font-semibold">{r.name}</p>
-                    <span className="text-[#C9A84C] text-xs font-bold">{r.savings}</span>
+                    <p className="text-[var(--text-primary)] text-xs font-semibold">{r.name}</p>
+                    <span className="text-[var(--gold)] text-xs font-bold">{r.savings}</span>
                   </div>
                 </button>
               ))}
@@ -209,13 +209,13 @@ export default function ReviewsCarousel() {
               <div className="flex gap-2 mt-auto pt-2">
                 <button
                   onClick={prev}
-                  className="flex-1 flex items-center justify-center gap-2 border border-[#2A2A26] hover:border-[#C9A84C]/40 text-[#B0B0B8] hover:text-[#C9A84C] py-2.5 text-xs tracking-widest uppercase transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 border border-[var(--border)] hover:border-(--gold)/40 text-[var(--text-muted)] hover:text-[var(--gold)] py-2.5 text-xs tracking-widest uppercase transition-all"
                 >
                   <ChevronLeft className="w-4 h-4" /> Prev
                 </button>
                 <button
                   onClick={next}
-                  className="flex-1 flex items-center justify-center gap-2 border border-[#2A2A26] hover:border-[#C9A84C]/40 text-[#B0B0B8] hover:text-[#C9A84C] py-2.5 text-xs tracking-widest uppercase transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 border border-[var(--border)] hover:border-(--gold)/40 text-[var(--text-muted)] hover:text-[var(--gold)] py-2.5 text-xs tracking-widest uppercase transition-all"
                 >
                   Next <ChevronRight className="w-4 h-4" />
                 </button>
@@ -228,7 +228,7 @@ export default function ReviewsCarousel() {
                     key={i}
                     onClick={() => setCurrent(i)}
                     className={`rounded-full transition-all ${
-                      i === current ? "w-5 h-1.5 bg-[#C9A84C]" : "w-1.5 h-1.5 bg-[#2A2A26] hover:bg-[#C9A84C]/40"
+                      i === current ? "w-5 h-1.5 bg-[var(--gold)]" : "w-1.5 h-1.5 bg-[var(--border)] hover:bg-(--gold)/40"
                     }`}
                   />
                 ))}
