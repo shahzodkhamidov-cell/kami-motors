@@ -28,6 +28,7 @@ const defaultValues = {
   drivetrain: "FWD",
   fuelType: "Gasoline",
   description: "",
+  numberOfOwners: "",
   status: "available",
   featured: false,
   features: [] as string[],
@@ -59,6 +60,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
         drivetrain: car.drivetrain || "FWD",
         fuelType: car.fuelType || "Gasoline",
         description: car.description || "",
+        numberOfOwners: car.numberOfOwners != null ? String(car.numberOfOwners) : "",
         status: car.status,
         featured: car.featured,
         features: car.features,
@@ -117,6 +119,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
       price: Math.round(parseFloat(form.price as string) * 100),
       cleanTitleValue: Math.round(parseFloat(form.cleanTitleValue as string) * 100),
       mileage: parseInt(form.mileage as string),
+      numberOfOwners: form.numberOfOwners !== "" ? parseInt(form.numberOfOwners as string) : null,
     };
 
     try {
@@ -143,15 +146,17 @@ export default function CarForm({ car, mode }: CarFormProps) {
   };
 
   const inputClass =
-    "w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 text-sm focus:border-green-500 transition-colors";
-  const labelClass = "block text-gray-400 text-xs font-medium mb-1";
+    "w-full bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text-primary)] px-3 py-2.5 text-sm focus:border-[var(--gold)] transition-colors";
+  const labelClass = "block text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium mb-1.5";
   const selectClass = inputClass + " cursor-pointer";
+  const sectionClass = "bg-[var(--bg-card)] border border-[var(--border)] p-6";
+  const sectionTitle = "text-[var(--text-primary)] text-xl leading-none mb-4";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
       {/* VIN Lookup */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <h2 className="text-white font-bold mb-4">VIN Lookup</h2>
+      <div className={sectionClass}>
+        <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>VIN Lookup</h2>
         <div className="flex gap-3">
           <div className="flex-1">
             <label className={labelClass}>VIN (17 characters)</label>
@@ -169,66 +174,37 @@ export default function CarForm({ car, mode }: CarFormProps) {
               type="button"
               onClick={lookupVin}
               disabled={form.vin.length !== 17 || vinLoading}
-              className="flex items-center gap-2 bg-green-500 hover:bg-green-400 disabled:bg-gray-700 disabled:text-gray-500 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-colors"
+              className="flex items-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-[var(--border)] disabled:text-[var(--text-dim)] text-[#080807] font-bold px-4 py-2.5 text-sm tracking-wide uppercase transition-colors"
             >
-              {vinLoading ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <Search className="w-4 h-4" />
-              )}
+              {vinLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
               Decode VIN
             </button>
           </div>
         </div>
-        <p className="text-gray-600 text-xs mt-2">
+        <p className="text-[var(--text-dim)] text-xs mt-2">
           Enter VIN and click Decode to auto-fill year, make, model, and specs from NHTSA database.
         </p>
       </div>
 
       {/* Basic Info */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <h2 className="text-white font-bold mb-4">Vehicle Details</h2>
+      <div className={sectionClass}>
+        <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Vehicle Details</h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div>
             <label className={labelClass}>Year *</label>
-            <input
-              type="number"
-              value={form.year}
-              onChange={(e) => set("year", Number(e.target.value))}
-              min={1990}
-              max={new Date().getFullYear() + 1}
-              className={inputClass}
-              required
-            />
+            <input type="number" value={form.year} onChange={(e) => set("year", Number(e.target.value))} min={1990} max={new Date().getFullYear() + 1} className={inputClass} required />
           </div>
           <div>
             <label className={labelClass}>Make *</label>
-            <input
-              value={form.make}
-              onChange={(e) => set("make", e.target.value)}
-              placeholder="Toyota"
-              className={inputClass}
-              required
-            />
+            <input value={form.make} onChange={(e) => set("make", e.target.value)} placeholder="Toyota" className={inputClass} required />
           </div>
           <div>
             <label className={labelClass}>Model *</label>
-            <input
-              value={form.model}
-              onChange={(e) => set("model", e.target.value)}
-              placeholder="Camry"
-              className={inputClass}
-              required
-            />
+            <input value={form.model} onChange={(e) => set("model", e.target.value)} placeholder="Camry" className={inputClass} required />
           </div>
           <div>
             <label className={labelClass}>Trim</label>
-            <input
-              value={form.trim}
-              onChange={(e) => set("trim", e.target.value)}
-              placeholder="LE, XSE..."
-              className={inputClass}
-            />
+            <input value={form.trim} onChange={(e) => set("trim", e.target.value)} placeholder="LE, XSE..." className={inputClass} />
           </div>
           <div>
             <label className={labelClass}>Body Type *</label>
@@ -238,23 +214,15 @@ export default function CarForm({ car, mode }: CarFormProps) {
           </div>
           <div>
             <label className={labelClass}>Color</label>
-            <input
-              value={form.color}
-              onChange={(e) => set("color", e.target.value)}
-              placeholder="White, Black..."
-              className={inputClass}
-            />
+            <input value={form.color} onChange={(e) => set("color", e.target.value)} placeholder="White, Black..." className={inputClass} />
           </div>
           <div>
             <label className={labelClass}>Mileage *</label>
-            <input
-              type="number"
-              value={form.mileage}
-              onChange={(e) => set("mileage", e.target.value)}
-              placeholder="45000"
-              className={inputClass}
-              required
-            />
+            <input type="number" value={form.mileage} onChange={(e) => set("mileage", e.target.value)} placeholder="45000" className={inputClass} required />
+          </div>
+          <div>
+            <label className={labelClass}>No. of Owners</label>
+            <input type="number" value={form.numberOfOwners} onChange={(e) => set("numberOfOwners", e.target.value)} placeholder="1" min={1} className={inputClass} />
           </div>
           <div>
             <label className={labelClass}>Status</label>
@@ -293,87 +261,47 @@ export default function CarForm({ car, mode }: CarFormProps) {
         </div>
 
         <div className="mt-4 flex items-center gap-3">
-          <input
-            type="checkbox"
-            id="featured"
-            checked={form.featured}
-            onChange={(e) => set("featured", e.target.checked)}
-            className="w-4 h-4 accent-green-500"
-          />
-          <label htmlFor="featured" className="text-gray-300 text-sm cursor-pointer">
-            Feature this car on the homepage
-          </label>
+          <input type="checkbox" id="featured" checked={form.featured} onChange={(e) => set("featured", e.target.checked)} className="w-4 h-4 accent-[var(--gold)]" />
+          <label htmlFor="featured" className="text-[var(--text-muted)] text-sm cursor-pointer">Feature this car on the homepage</label>
         </div>
       </div>
 
       {/* Pricing */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <h2 className="text-white font-bold mb-2">Pricing</h2>
-        <p className="text-gray-500 text-xs mb-4">
-          Enter your asking price and the estimated clean title market value (check KBB, CarGurus, or Blackbook for the clean title value).
-          The website will automatically show customers how much they save.
+      <div className={sectionClass}>
+        <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Pricing</h2>
+        <p className="text-[var(--text-dim)] text-xs mb-4">
+          Enter your asking price and the estimated clean title market value. The website will automatically show customers how much they save.
         </p>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Our Price ($) *</label>
-            <input
-              type="number"
-              step="0.01"
-              value={form.price}
-              onChange={(e) => set("price", e.target.value)}
-              placeholder="18500"
-              className={inputClass}
-              required
-            />
+            <input type="number" step="0.01" value={form.price} onChange={(e) => set("price", e.target.value)} placeholder="18500" className={inputClass} required />
           </div>
           <div>
             <label className={labelClass}>Clean Title Market Value ($) *</label>
-            <input
-              type="number"
-              step="0.01"
-              value={form.cleanTitleValue}
-              onChange={(e) => set("cleanTitleValue", e.target.value)}
-              placeholder="28000"
-              className={inputClass}
-              required
-            />
-            <p className="text-gray-600 text-xs mt-1">Look up on KBB / CarGurus / Blackbook</p>
+            <input type="number" step="0.01" value={form.cleanTitleValue} onChange={(e) => set("cleanTitleValue", e.target.value)} placeholder="28000" className={inputClass} required />
+            <p className="text-[var(--text-dim)] text-xs mt-1">Look up on KBB / CarGurus / Blackbook</p>
           </div>
         </div>
         {form.price && form.cleanTitleValue && (
-          <div className="mt-3 bg-green-500/10 border border-green-500/20 rounded-xl p-3">
-            <p className="text-green-400 text-sm font-medium">
-              Customer savings:{" "}
-              <span className="font-black">
-                ${(parseFloat(form.cleanTitleValue as string) - parseFloat(form.price as string)).toLocaleString()}
-              </span>{" "}
-              (
-              {Math.round(
-                ((parseFloat(form.cleanTitleValue as string) - parseFloat(form.price as string)) /
-                  parseFloat(form.cleanTitleValue as string)) *
-                  100
-              )}
-              % off clean title value)
+          <div className="mt-3 bg-(--gold)/5 border border-(--gold)/20 p-3">
+            <p className="text-[var(--gold)] text-sm font-medium">
+              Customer savings: <span className="font-black">${(parseFloat(form.cleanTitleValue as string) - parseFloat(form.price as string)).toLocaleString()}</span>{" "}
+              ({Math.round(((parseFloat(form.cleanTitleValue as string) - parseFloat(form.price as string)) / parseFloat(form.cleanTitleValue as string)) * 100)}% off clean title value)
             </p>
           </div>
         )}
       </div>
 
       {/* Description */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <h2 className="text-white font-bold mb-4">Description</h2>
-        <textarea
-          value={form.description}
-          onChange={(e) => set("description", e.target.value)}
-          rows={5}
-          placeholder="Describe the vehicle's condition, rebuild history, notable features..."
-          className={inputClass + " resize-none"}
-        />
+      <div className={sectionClass}>
+        <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Description</h2>
+        <textarea value={form.description} onChange={(e) => set("description", e.target.value)} rows={5} placeholder="Describe the vehicle's condition, rebuild history, notable features..." className={inputClass + " resize-none"} />
       </div>
 
       {/* Features */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <h2 className="text-white font-bold mb-4">Features</h2>
+      <div className={sectionClass}>
+        <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Features</h2>
         <div className="flex gap-2 mb-3">
           <input
             value={newFeature}
@@ -382,11 +310,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
             placeholder="e.g. Backup Camera, Leather Seats..."
             className={inputClass + " flex-1"}
           />
-          <button
-            type="button"
-            onClick={addFeature}
-            className="flex items-center gap-1 bg-green-500 hover:bg-green-400 text-white px-3 py-2.5 rounded-xl text-sm transition-colors"
-          >
+          <button type="button" onClick={addFeature} className="flex items-center gap-1 bg-[var(--gold)] hover:bg-[var(--gold-light)] text-[#080807] font-bold px-3 py-2.5 text-sm tracking-wide uppercase transition-colors">
             <Plus className="w-4 h-4" />
             Add
           </button>
@@ -394,9 +318,9 @@ export default function CarForm({ car, mode }: CarFormProps) {
         {form.features.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {form.features.map((f: string) => (
-              <span key={f} className="flex items-center gap-1.5 bg-gray-800 border border-gray-700 text-white text-sm px-3 py-1.5 rounded-lg">
+              <span key={f} className="flex items-center gap-1.5 bg-[var(--bg-card-2)] border border-[var(--border)] text-[var(--text-primary)] text-sm px-3 py-1.5">
                 {f}
-                <button type="button" onClick={() => removeFeature(f)} className="text-gray-400 hover:text-red-400 transition-colors">
+                <button type="button" onClick={() => removeFeature(f)} className="text-[var(--text-dim)] hover:text-red-500 transition-colors">
                   <X className="w-3.5 h-3.5" />
                 </button>
               </span>
@@ -406,46 +330,26 @@ export default function CarForm({ car, mode }: CarFormProps) {
       </div>
 
       {/* Images */}
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6">
-        <h2 className="text-white font-bold mb-2">Photos</h2>
-        <p className="text-gray-500 text-xs mb-4">
+      <div className={sectionClass}>
+        <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Photos</h2>
+        <p className="text-[var(--text-dim)] text-xs mb-4">
           Drag & drop images or click to browse. First image is the main photo shown on listings.
         </p>
-        <ImageUploader
-          images={form.images}
-          onChange={(imgs) => set("images", imgs)}
-        />
+        <ImageUploader images={form.images} onChange={(imgs) => set("images", imgs)} />
       </div>
 
       {error && (
-        <p className="text-red-400 text-sm bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">
-          {error}
-        </p>
+        <p className="text-red-500 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3">{error}</p>
       )}
 
       <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="flex-none bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
-        >
+        <button type="button" onClick={() => router.back()} className="flex-none bg-[var(--bg-card-2)] hover:bg-[var(--border)] border border-[var(--border)] text-[var(--text-primary)] font-medium px-6 py-3 text-sm tracking-wide uppercase transition-colors">
           Cancel
         </button>
-        <button
-          type="submit"
-          disabled={loading}
-          className="flex-1 sm:flex-none sm:px-8 flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 disabled:bg-green-700 text-white font-bold py-3 rounded-xl text-sm transition-colors"
-        >
+        <button type="submit" disabled={loading} className="flex-1 sm:flex-none sm:px-8 flex items-center justify-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-(--gold)/40 text-[#080807] font-bold py-3 text-sm tracking-widest uppercase transition-colors">
           {loading ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Saving...
-            </>
-          ) : mode === "create" ? (
-            "Add to Inventory"
-          ) : (
-            "Save Changes"
-          )}
+            <><Loader2 className="w-4 h-4 animate-spin" />Saving...</>
+          ) : mode === "create" ? "Add to Inventory" : "Save Changes"}
         </button>
       </div>
     </form>

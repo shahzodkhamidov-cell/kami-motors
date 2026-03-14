@@ -69,10 +69,10 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
         onDragLeave={() => setDraggingOver(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
+        className={`relative border-2 border-dashed p-8 text-center cursor-pointer transition-all ${
           draggingOver
-            ? "border-green-400 bg-green-500/10"
-            : "border-gray-700 hover:border-gray-500 hover:bg-gray-800/50"
+            ? "border-[var(--gold)] bg-(--gold)/5"
+            : "border-[var(--border)] hover:border-[var(--gold)]/50 hover:bg-(--gold)/5"
         }`}
       >
         <input
@@ -85,23 +85,18 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
         />
         {uploading ? (
           <div className="flex flex-col items-center gap-2">
-            <Loader2 className="w-8 h-8 text-green-400 animate-spin" />
-            <p className="text-gray-400 text-sm">Uploading...</p>
+            <Loader2 className="w-8 h-8 text-[var(--gold)] animate-spin" />
+            <p className="text-[var(--text-muted)] text-sm">Uploading to Supabase...</p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${draggingOver ? "bg-green-500/20" : "bg-gray-800"}`}>
-              {draggingOver ? (
-                <Upload className="w-6 h-6 text-green-400" />
-              ) : (
-                <ImagePlus className="w-6 h-6 text-gray-400" />
-              )}
-            </div>
+            <ImagePlus className="w-8 h-8 text-[var(--text-dim)]" />
             <div>
-              <p className="text-white text-sm font-medium">
-                {draggingOver ? "Drop images here" : "Drag & drop photos here"}
+              <p className="text-[var(--text-muted)] text-sm font-medium">
+                {draggingOver ? "Drop images here" : "Drop photos here or "}
+                {!draggingOver && <span className="text-[var(--gold)]">click to browse</span>}
               </p>
-              <p className="text-gray-500 text-xs mt-0.5">or click to browse · JPG, PNG, WebP</p>
+              <p className="text-[var(--text-dim)] text-xs mt-0.5">JPG, PNG, WebP — multiple files supported</p>
             </div>
           </div>
         )}
@@ -110,7 +105,7 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
       {/* Image grid */}
       {images.length > 0 && (
         <div>
-          <p className="text-gray-500 text-xs mb-2">
+          <p className="text-[var(--text-dim)] text-xs mb-2">
             {images.length} photo{images.length !== 1 ? "s" : ""} · Drag to reorder · First image is the main photo
           </p>
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -122,19 +117,19 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
                 onDragOver={(e) => { e.preventDefault(); setDropIndex(i); }}
                 onDrop={(e) => handleReorderDrop(e, i)}
                 onDragEnd={() => { setDragIndex(null); setDropIndex(null); }}
-                className={`relative group aspect-[4/3] bg-gray-800 rounded-xl overflow-hidden border-2 transition-all cursor-grab active:cursor-grabbing ${
+                className={`relative group aspect-[4/3] bg-[var(--bg-card-2)] overflow-hidden border transition-all cursor-grab active:cursor-grabbing ${
                   dragIndex === i
-                    ? "opacity-40 border-gray-600"
+                    ? "opacity-40 border-[var(--border)]"
                     : dropIndex === i && dragIndex !== null
-                    ? "border-green-400 scale-105"
-                    : "border-transparent"
+                    ? "border-[var(--gold)] scale-105"
+                    : "border-[var(--border)]"
                 }`}
               >
                 <Image src={url} alt="" fill className="object-cover" unoptimized />
 
                 {/* Main badge */}
                 {i === 0 && (
-                  <span className="absolute top-1 left-1 bg-green-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold z-10">
+                  <span className="absolute top-1 left-1 bg-[var(--gold)] text-[#080807] text-[10px] px-1.5 py-0.5 font-bold z-10">
                     MAIN
                   </span>
                 )}
@@ -163,9 +158,9 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
             {/* Add more tile */}
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="aspect-[4/3] bg-gray-800 rounded-xl border-2 border-dashed border-gray-700 hover:border-gray-500 flex items-center justify-center cursor-pointer transition-colors group"
+              className="aspect-[4/3] bg-[var(--bg-card-2)] border border-dashed border-[var(--border)] hover:border-[var(--gold)]/50 flex items-center justify-center cursor-pointer transition-colors group"
             >
-              <div className="flex flex-col items-center gap-1 text-gray-600 group-hover:text-gray-400 transition-colors">
+              <div className="flex flex-col items-center gap-1 text-[var(--text-dim)] group-hover:text-[var(--text-muted)] transition-colors">
                 <Upload className="w-5 h-5" />
                 <span className="text-[10px]">Add more</span>
               </div>
