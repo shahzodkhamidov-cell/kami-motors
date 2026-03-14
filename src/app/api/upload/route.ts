@@ -1,46 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { supabaseAdmin } from "@/lib/supabase";
+import { writeFile, mkdir } from "fs/promises";
+import { join } from "path";
+import { randomUUID } from "crypto";
 
-const BUCKET = "car-images";
-
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   const session = await auth();
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const formData = await req.formData();
+
+  // Support both single file (field "file") and multiple files (field "files")
+  const single = formData.get("file") as File | null;
+  const multiple = formData.getAll("files") as File[];
+  const files = single ? [single] : multiple;
+
+  if (!files.length) return NextResponse.json({ error: "No file provided" }, { status: 400 });
+
+  const uploadDir = join(process.cwd(), "public", "uploads");
+  await mkdir(uploadDir, { recursive: true });
+
+  const urls: string[] = [];
+
+  for (const file of files) {
+    if (!file.type.startsWith("image/")) continue;
+    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const filename = `${randomUUID()}.${ext}`;
+    const buffer = Buffer.from(await file.arrayBuffer());
+    await writeFile(join(uploadDir, filename), buffer);
+    urls.push(`/uploads/${filename}`);
   }
 
-  const formData = await request.formData();
-  const file = formData.get("file") as File | null;
+  if (!urls.length) return NextResponse.json({ error: "No valid images" }, { status: 400 });
 
-  if (!file) {
-    return NextResponse.json({ error: "No file provided" }, { status: 400 });
-  }
-
-  // Ensure bucket exists
-  const { data: buckets } = await supabaseAdmin.storage.listBuckets();
-  if (!buckets?.find((b) => b.name === BUCKET)) {
-    await supabaseAdmin.storage.createBucket(BUCKET, { public: true });
-  }
-
-  const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-  const bytes = await file.arrayBuffer();
-
-  const { error } = await supabaseAdmin.storage
-    .from(BUCKET)
-    .upload(filename, bytes, {
-      contentType: file.type || "image/jpeg",
-      upsert: false,
-    });
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  const { data: urlData } = supabaseAdmin.storage
-    .from(BUCKET)
-    .getPublicUrl(filename);
-
-  return NextResponse.json({ url: urlData.publicUrl });
+  // Return { url } for single-file callers, { urls } for multi-file callers
+  return NextResponse.json({ url: urls[0], urls });
 }
