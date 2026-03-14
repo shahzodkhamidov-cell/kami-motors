@@ -6,6 +6,7 @@ import { Plus, Pencil, Eye, Star } from "lucide-react";
 import { formatCurrency, formatMileage } from "@/lib/utils";
 import DeleteCarButton from "./DeleteCarButton";
 import FeatureToggle from "./FeatureToggle";
+import PublishToggle from "./PublishToggle";
 
 export default async function AdminInventoryPage() {
   const session = await auth();
@@ -50,12 +51,20 @@ export default async function AdminInventoryPage() {
         </Link>
       </div>
 
-      {/* Featured info banner */}
-      <div className="flex items-start gap-3 bg-[var(--gold)]/5 border border-[var(--gold)]/20 p-4 mb-6">
-        <Star className="w-4 h-4 text-[var(--gold)] fill-[var(--gold)] shrink-0 mt-0.5" />
-        <p className="text-[var(--text-muted)] text-sm">
-          Click the <span className="text-[var(--gold)] font-semibold">★ star</span> next to any car to feature it on the homepage carousel. Featured cars must have status <span className="text-[var(--gold)] font-semibold">Available</span> to appear.
-        </p>
+      {/* Info banners */}
+      <div className="space-y-2 mb-6">
+        <div className="flex items-start gap-3 bg-green-500/5 border border-green-500/20 p-4">
+          <Eye className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
+          <p className="text-gray-400 text-sm">
+            Cars start as <span className="text-gray-200 font-semibold">Draft</span> — invisible to customers. Click <span className="text-green-400 font-semibold">Draft → Live</span> to publish a car to the site.
+          </p>
+        </div>
+        <div className="flex items-start gap-3 bg-[var(--gold)]/5 border border-[var(--gold)]/20 p-4">
+          <Star className="w-4 h-4 text-[var(--gold)] fill-[var(--gold)] shrink-0 mt-0.5" />
+          <p className="text-[var(--text-muted)] text-sm">
+            Click the <span className="text-[var(--gold)] font-semibold">★ star</span> to feature a car on the homepage carousel. Must be published + Available to appear.
+          </p>
+        </div>
       </div>
 
       {cars.length === 0 ? (
@@ -87,6 +96,7 @@ export default async function AdminInventoryPage() {
                   <th className="text-left text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium px-4 py-3">Our Price</th>
                   <th className="text-left text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium px-4 py-3">Savings</th>
                   <th className="text-left text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium px-4 py-3">Status</th>
+                  <th className="text-left text-green-400 text-[10px] tracking-widest uppercase font-medium px-4 py-3">Publish</th>
                   <th className="text-center text-[var(--gold)] text-[10px] tracking-widest uppercase font-medium px-4 py-3" title="Featured on homepage">★ Home</th>
                   <th className="text-right text-[var(--text-dim)] text-[10px] tracking-widest uppercase font-medium px-4 py-3">Actions</th>
                 </tr>
@@ -95,7 +105,7 @@ export default async function AdminInventoryPage() {
                 {cars.map((car) => {
                   const savings = car.cleanTitleValue - car.price;
                   return (
-                    <tr key={car.id} className={`border-b border-[var(--border)]/50 hover:bg-[var(--bg-card-2)] transition-colors ${car.featured ? "bg-(--gold)/3" : ""}`}>
+                    <tr key={car.id} className={`border-b border-[var(--border)]/50 hover:bg-[var(--bg-card-2)] transition-colors ${!car.published ? "opacity-60" : ""}`}>
                       <td className="px-4 py-3">
                         <div>
                           <p className="text-[var(--text-primary)] text-sm font-medium">
@@ -123,6 +133,9 @@ export default async function AdminInventoryPage() {
                         >
                           {statusLabel[car.status] || car.status}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <PublishToggle carId={car.id} published={car.published} />
                       </td>
                       <td className="px-4 py-3 text-center">
                         <FeatureToggle carId={car.id} featured={car.featured} />

@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const car = await prisma.car.findUnique({ where: { id } });
+  const car = await prisma.car.findUnique({ where: { id, published: true } });
   if (!car) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
   return NextResponse.json({
@@ -50,6 +50,7 @@ export async function PUT(
       images: JSON.stringify(body.images || []),
       status: body.status || "available",
       featured: body.featured || false,
+      published: body.published ?? false,
     },
   });
 

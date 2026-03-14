@@ -15,7 +15,11 @@ export async function GET(request: NextRequest) {
 
   const where: Record<string, unknown> = {};
 
-  if (status !== "all") where.status = status;
+  // Public requests always see only published cars; admin passes status="all" to bypass
+  if (status !== "all") {
+    where.status = status;
+    where.published = true;
+  }
   if (bodyType) where.bodyType = { equals: bodyType, mode: "insensitive" };
   if (featured === "true") where.featured = true;
   if (make) where.make = { equals: make, mode: "insensitive" };
@@ -74,6 +78,7 @@ export async function POST(request: NextRequest) {
       images: JSON.stringify(body.images || []),
       status: body.status || "available",
       featured: body.featured || false,
+      published: body.published || false,
     },
   });
 

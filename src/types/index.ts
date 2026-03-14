@@ -20,6 +20,7 @@ export interface Car {
   images: string[];
   status: string;
   featured: boolean;
+  published: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

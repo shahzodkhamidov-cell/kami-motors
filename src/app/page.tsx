@@ -9,7 +9,7 @@ import { Car as CarType } from "@/types";
 async function getFeaturedCars(): Promise<CarType[]> {
   try {
     const cars = await prisma.car.findMany({
-      where: { status: "available", featured: true },
+      where: { status: "available", featured: true, published: true },
       orderBy: { createdAt: "desc" },
       take: 8,
     });
@@ -26,7 +26,7 @@ async function getFeaturedCars(): Promise<CarType[]> {
 async function getComingSoonCars(): Promise<CarType[]> {
   try {
     const cars = await prisma.car.findMany({
-      where: { status: "coming_soon" },
+      where: { status: "coming_soon", published: true },
       orderBy: { createdAt: "desc" },
       take: 3,
     });
@@ -43,9 +43,9 @@ async function getComingSoonCars(): Promise<CarType[]> {
 async function getStats() {
   try {
     const [available, sold, comingSoon] = await Promise.all([
-      prisma.car.count({ where: { status: "available" } }),
-      prisma.car.count({ where: { status: "sold" } }),
-      prisma.car.count({ where: { status: "coming_soon" } }),
+      prisma.car.count({ where: { status: "available", published: true } }),
+      prisma.car.count({ where: { status: "sold", published: true } }),
+      prisma.car.count({ where: { status: "coming_soon", published: true } }),
     ]);
     return { available, sold, comingSoon };
   } catch {

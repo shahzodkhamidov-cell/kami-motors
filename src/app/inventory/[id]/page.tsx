@@ -9,7 +9,7 @@ import CarGallery from "@/components/CarGallery";
 
 async function getCar(id: string): Promise<Car | null> {
   try {
-    const car = await prisma.car.findUnique({ where: { id } });
+    const car = await prisma.car.findUnique({ where: { id, published: true } });
     if (!car) return null;
     return {
       ...car,
