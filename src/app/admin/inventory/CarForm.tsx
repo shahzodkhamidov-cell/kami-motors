@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Search, Plus, X } from "lucide-react";
+import { Loader2, Search, Plus, X, Globe } from "lucide-react";
 import ImageUploader from "./ImageUploader";
 import { BODY_TYPES, FUEL_TYPES, TRANSMISSION_TYPES, DRIVETRAIN_TYPES } from "@/lib/utils";
 import { Car } from "@/types";
@@ -37,6 +37,7 @@ const defaultValues = {
 
 export default function CarForm({ car, mode }: CarFormProps) {
   const router = useRouter();
+  const publishRef = useRef(false);
   const [loading, setLoading] = useState(false);
   const [vinLoading, setVinLoading] = useState(false);
   const [error, setError] = useState("");
@@ -111,6 +112,8 @@ export default function CarForm({ car, mode }: CarFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const forcePublish = publishRef.current;
+    publishRef.current = false;
     setLoading(true);
     setError("");
 
@@ -120,6 +123,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
       cleanTitleValue: Math.round(parseFloat(form.cleanTitleValue as string) * 100),
       mileage: parseInt(form.mileage as string),
       numberOfOwners: form.numberOfOwners !== "" ? parseInt(form.numberOfOwners as string) : null,
+      ...(forcePublish ? { published: true } : {}),
     };
 
     try {
@@ -132,8 +136,12 @@ export default function CarForm({ car, mode }: CarFormProps) {
       });
 
       if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to save");
+        let errMsg = "Failed to save";
+        try {
+          const data = await res.json();
+          errMsg = data.error || errMsg;
+        } catch {}
+        throw new Error(errMsg);
       }
 
       router.push("/admin/inventory");
@@ -342,14 +350,26 @@ export default function CarForm({ car, mode }: CarFormProps) {
         <p className="text-red-500 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3">{error}</p>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <button type="button" onClick={() => router.back()} className="flex-none bg-[var(--bg-card-2)] hover:bg-[var(--border)] border border-[var(--border)] text-[var(--text-primary)] font-medium px-6 py-3 text-sm tracking-wide uppercase transition-colors">
           Cancel
         </button>
-        <button type="submit" disabled={loading} className="flex-1 sm:flex-none sm:px-8 flex items-center justify-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-(--gold)/40 text-[#080807] font-bold py-3 text-sm tracking-widest uppercase transition-colors">
+        <button type="submit" disabled={loading} className="flex-none px-8 flex items-center justify-center gap-2 bg-[var(--bg-card-2)] hover:bg-[var(--border)] border border-[var(--border)] text-[var(--text-primary)] font-bold py-3 text-sm tracking-widest uppercase transition-colors">
           {loading ? (
             <><Loader2 className="w-4 h-4 animate-spin" />Saving...</>
-          ) : mode === "create" ? "Add to Inventory" : "Save Changes"}
+          ) : mode === "create" ? "Add to Inventory" : "Save Draft"}
+        </button>
+        <button
+          type="submit"
+          disabled={loading}
+          onClick={() => { publishRef.current = true; }}
+          className="flex-1 sm:flex-none sm:px-8 flex items-center justify-center gap-2 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:opacity-40 text-[#080807] font-bold py-3 text-sm tracking-widest uppercase transition-colors"
+        >
+          {loading ? (
+            <><Loader2 className="w-4 h-4 animate-spin" />Saving...</>
+          ) : (
+            <><Globe className="w-4 h-4" />Save &amp; Publish</>
+          )}
         </button>
       </div>
     </form>

@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const bodyType = searchParams.get("bodyType");
-  const status = searchParams.get("status") || "available";
+  const status = searchParams.get("status");
   const featured = searchParams.get("featured");
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
@@ -15,9 +15,14 @@ export async function GET(request: NextRequest) {
 
   const where: Record<string, unknown> = {};
 
-  // Public requests always see only published cars; admin passes status="all" to bypass
-  if (status !== "all") {
+  // admin passes status="all" to see everything; public gets only published cars
+  if (status === "all") {
+    // no filters — admin sees all cars
+  } else if (status) {
     where.status = status;
+    where.published = true;
+  } else {
+    // no status param = public inventory: all statuses but only published
     where.published = true;
   }
   if (bodyType) where.bodyType = { equals: bodyType, mode: "insensitive" };
@@ -54,10 +59,18 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let body: Record<string, any>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
 
-  const car = await prisma.car.create({
-    data: {
+  let car;
+  try {
+    car = await prisma.car.create({
+      data: {
       vin: body.vin,
       year: Number(body.year),
       make: body.make,
@@ -79,8 +92,13 @@ export async function POST(request: NextRequest) {
       status: body.status || "available",
       featured: body.featured || false,
       published: body.published || false,
-    },
-  });
+      },
+    });
+  } catch (err) {
+    console.error("Failed to create car:", err);
+    const message = err instanceof Error ? err.message : "Database error";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 
   return NextResponse.json({
     ...car,

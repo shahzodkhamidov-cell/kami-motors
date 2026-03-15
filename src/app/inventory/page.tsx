@@ -32,7 +32,7 @@ export default function InventoryPage() {
   useEffect(() => {
     const fetchCars = async () => {
       setLoading(true);
-      const params = new URLSearchParams({ status: "all" });
+      const params = new URLSearchParams();
       if (filters.bodyType) params.set("bodyType", filters.bodyType);
       if (filters.minPrice) params.set("minPrice", filters.minPrice);
       if (filters.maxPrice) params.set("maxPrice", filters.maxPrice);
