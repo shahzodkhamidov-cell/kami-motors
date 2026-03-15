@@ -150,7 +150,7 @@ export default function CarCard({ car }: CarCardProps) {
               disabled={car.status !== "available"}
               className="flex-1 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-[var(--border)] disabled:text-[var(--text-dim)] disabled:cursor-not-allowed text-[#080807] font-bold py-2.5 text-xs tracking-widest uppercase transition-colors"
             >
-              {car.status === "coming_soon" ? "Notify Me" : "Apply Financing"}
+              {car.status === "coming_soon" ? "Notify Me" : "Contact Us"}
             </button>
             <Link
               href={`/inventory/${car.id}`}

@@ -72,10 +72,7 @@ export default function InventoryPage() {
       {/* Header */}
       <section className="py-14 border-b border-[var(--border)] mb-8">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-[var(--gold)]" />
-            <span className="text-[var(--gold)] text-xs tracking-[0.3em] uppercase">Rebuilt Title Specialists</span>
-          </div>
+
           <h1
             className="text-[var(--text-primary)] leading-none mb-3"
             style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "clamp(3rem, 8vw, 6rem)", letterSpacing: "0.03em" }}
