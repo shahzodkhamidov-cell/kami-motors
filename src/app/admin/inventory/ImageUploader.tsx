@@ -26,6 +26,7 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
         const fd = new FormData();
         imageFiles.forEach((f) => fd.append("files", f));
         const res = await fetch("/api/upload", { method: "POST", body: fd });
+        if (!res.ok) throw new Error("Upload failed");
         const data = await res.json();
         if (data.urls) onChange([...images, ...data.urls]);
       } finally {

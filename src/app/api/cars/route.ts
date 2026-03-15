@@ -39,10 +39,16 @@ export async function GET(request: NextRequest) {
     if (maxYear) (where.year as Record<string, number>).lte = Number(maxYear);
   }
 
-  const cars = await prisma.car.findMany({
-    where,
-    orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
-  });
+  let cars;
+  try {
+    cars = await prisma.car.findMany({
+      where,
+      orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
+    });
+  } catch (err) {
+    console.error("Failed to fetch cars:", err);
+    return NextResponse.json({ error: "Database error" }, { status: 500 });
+  }
 
   const parsed = cars.map((car) => ({
     ...car,

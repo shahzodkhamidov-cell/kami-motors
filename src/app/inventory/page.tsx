@@ -41,8 +41,9 @@ export default function InventoryPage() {
       if (filters.make) params.set("make", filters.make);
 
       const res = await fetch(`/api/cars?${params}`);
+      if (!res.ok) throw new Error("Failed to load inventory");
       const data = await res.json();
-      setCars(data);
+      setCars(Array.isArray(data) ? data : []);
       setLoading(false);
     };
     fetchCars();
