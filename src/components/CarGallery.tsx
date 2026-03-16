@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Expand } from "lucide-react";
+import { imgUrl } from "@/lib/utils";
 
 interface CarGalleryProps {
   images: string[];
@@ -69,9 +70,10 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
       {/* Main image */}
       <div className="relative aspect-[16/10] bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden group">
         <img
-          src={images[active]}
+          src={imgUrl(images[active], 1200, 80)}
           alt={alt}
           className="w-full h-full object-cover"
+          loading="eager"
         />
         {/* Expand button */}
         <button
@@ -119,7 +121,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
                   : "border-[var(--border)] opacity-50 hover:opacity-80"
               }`}
             >
-              <img src={img} alt="" className="w-full h-full object-cover" />
+              <img src={imgUrl(img, 160, 60)} alt="" className="w-full h-full object-cover" />
             </button>
           ))}
         </div>
@@ -176,7 +178,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             onMouseLeave={() => setDragging(false)}
           >
             <img
-              src={images[active]}
+              src={imgUrl(images[active], 1600, 85)}
               alt={alt}
               draggable={false}
               className="max-h-full max-w-full object-contain select-none"
@@ -216,7 +218,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
                     i === active ? "border-[var(--gold)] opacity-100" : "border-transparent opacity-40 hover:opacity-70"
                   }`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <img src={imgUrl(img, 160, 60)} alt="" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>

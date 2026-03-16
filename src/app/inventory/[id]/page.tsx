@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, Users, AlertTriangle, FileText, ShieldCheck } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { Car } from "@/types";
 import { formatCurrency, formatMileage, getSavingsPercent } from "@/lib/utils";
@@ -111,50 +111,6 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                 <p className="text-[var(--text-muted)] text-sm leading-relaxed whitespace-pre-wrap">{car.description}</p>
               </div>
             )}
-
-            {/* Vehicle History */}
-            <div className="bg-[var(--bg-card)] border border-[var(--border)] p-5">
-              <h3
-                className="text-[var(--gold)] text-xl leading-none mb-4"
-                style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}
-              >
-                Vehicle History
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="flex items-start gap-2.5">
-                  <Users className="w-4 h-4 text-[var(--gold)] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase">Owners</p>
-                    <p className="text-[var(--text-primary)] text-sm font-medium">
-                      {car.numberOfOwners != null ? car.numberOfOwners : "—"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <AlertTriangle className="w-4 h-4 text-[var(--gold)] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase">Accidents</p>
-                    <p className="text-[var(--text-primary)] text-sm font-medium">
-                      {car.description?.startsWith("Damage:") ? "1 reported" : car.description ? "1 reported" : "—"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <FileText className="w-4 h-4 text-[var(--gold)] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase">Title</p>
-                    <p className="text-[var(--gold)] text-sm font-medium">Rebuilt</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <ShieldCheck className="w-4 h-4 text-[var(--gold)] mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[var(--text-dim)] text-[10px] tracking-widest uppercase">Inspected</p>
-                    <p className="text-[var(--text-primary)] text-sm font-medium">Yes</p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Specs */}
             <div className="bg-[var(--bg-card)] border border-[var(--border)] p-6">

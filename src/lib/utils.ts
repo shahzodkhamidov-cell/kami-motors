@@ -54,3 +54,14 @@ export const FUEL_TYPES = [
 export const TRANSMISSION_TYPES = ["Automatic", "Manual", "CVT"] as const;
 
 export const DRIVETRAIN_TYPES = ["FWD", "RWD", "AWD", "4WD"] as const;
+
+// Supabase image transform — resizes + compresses on the fly
+export function imgUrl(src: string, width: number, quality = 75): string {
+  if (!src.includes("supabase.co/storage")) return src;
+  const url = new URL(src);
+  // Convert /object/public/ path to /render/image/public/
+  url.pathname = url.pathname.replace("/object/public/", "/render/image/public/");
+  url.searchParams.set("width", String(width));
+  url.searchParams.set("quality", String(quality));
+  return url.toString();
+}

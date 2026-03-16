@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Gauge, Calendar, Fuel, TrendingDown, ChevronRight } from "lucide-react";
+import { Gauge, Calendar, Fuel, TrendingDown } from "lucide-react";
 import { Car } from "@/types";
-import { formatCurrency, formatMileage, getSavingsPercent } from "@/lib/utils";
+import { formatCurrency, formatMileage, getSavingsPercent, imgUrl } from "@/lib/utils";
 import FinancingModal from "./FinancingModal";
 
 interface CarCardProps {
@@ -20,12 +20,12 @@ export default function CarCard({ car }: CarCardProps) {
 
   return (
     <>
-      <div className="car-card bg-[var(--bg-card)] border border-[var(--border)] flex flex-col">
+      <Link href={`/inventory/${car.id}`} className="car-card bg-[var(--bg-card)] border border-[var(--border)] flex flex-col group/card hover:border-[var(--gold)]/30 transition-colors">
         {/* Image */}
         <div className="relative aspect-[16/10] bg-[var(--bg-card-2)] overflow-hidden">
           {mainImage ? (
             <Image
-              src={mainImage}
+              src={imgUrl(mainImage, 800, 75)}
               alt={`${car.year} ${car.make} ${car.model}`}
               fill
               className="object-cover"
@@ -146,21 +146,15 @@ export default function CarCard({ car }: CarCardProps) {
           {/* Actions */}
           <div className="flex gap-2">
             <button
-              onClick={() => setShowFinancing(true)}
+              onClick={(e) => { e.preventDefault(); setShowFinancing(true); }}
               disabled={car.status !== "available"}
               className="flex-1 bg-[var(--gold)] hover:bg-[var(--gold-light)] disabled:bg-[var(--border)] disabled:text-[var(--text-dim)] disabled:cursor-not-allowed text-[#080807] font-bold py-2.5 text-xs tracking-widest uppercase transition-colors"
             >
               {car.status === "coming_soon" ? "Notify Me" : "Contact Us"}
             </button>
-            <Link
-              href={`/inventory/${car.id}`}
-              className="flex items-center justify-center w-11 border border-[var(--border)] hover:border-(--gold)/40 text-[var(--text-muted)] hover:text-[var(--gold)] transition-colors"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </Link>
           </div>
         </div>
-      </div>
+      </Link>
 
       <FinancingModal
         car={car}
