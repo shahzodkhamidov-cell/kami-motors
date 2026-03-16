@@ -50,7 +50,6 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
     return () => window.removeEventListener("keydown", handler);
   }, [lightbox, prev, next]);
 
-  // Lock body scroll when lightbox open
   useEffect(() => {
     if (lightbox) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
@@ -70,34 +69,34 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
       {/* Main image */}
       <div className="relative aspect-[16/10] bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden group">
         <Image
+          key={images[active]}
           src={images[active]}
           alt={alt}
           fill
+          priority={active === 0}
+          sizes="(max-width: 1024px) 100vw, 66vw"
           className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 66vw, 900px"
-          priority
-          quality={80}
         />
         {/* Expand button */}
         <button
           onClick={() => openLightbox(active)}
-          className="absolute bottom-3 right-3 bg-[var(--bg-primary)]/80 backdrop-blur border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] hover:border-[var(--gold)]/40 p-2 opacity-0 group-hover:opacity-100 transition-all"
+          className="absolute bottom-3 right-3 bg-[var(--bg-primary)]/80 backdrop-blur border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] hover:border-[var(--gold)]/40 p-2 opacity-0 group-hover:opacity-100 transition-all z-10"
           title="View fullscreen"
         >
           <Expand className="w-4 h-4" />
         </button>
-        {/* Nav arrows if multiple images */}
+        {/* Nav arrows */}
         {images.length > 1 && (
           <>
             <button
-              onClick={() => { prev(); }}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-[var(--bg-primary)]/80 backdrop-blur border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] p-1.5 opacity-0 group-hover:opacity-100 transition-all"
+              onClick={prev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-[var(--bg-primary)]/80 backdrop-blur border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] p-1.5 opacity-0 group-hover:opacity-100 transition-all z-10"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
-              onClick={() => { next(); }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-[var(--bg-primary)]/80 backdrop-blur border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] p-1.5 opacity-0 group-hover:opacity-100 transition-all"
+              onClick={next}
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-[var(--bg-primary)]/80 backdrop-blur border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] p-1.5 opacity-0 group-hover:opacity-100 transition-all z-10"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -105,7 +104,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
         )}
         {/* Counter */}
         {images.length > 1 && (
-          <span className="absolute bottom-3 left-3 bg-[var(--bg-primary)]/80 backdrop-blur text-[var(--text-muted)] text-xs px-2 py-1 border border-[var(--border)]">
+          <span className="absolute bottom-3 left-3 bg-[var(--bg-primary)]/80 backdrop-blur text-[var(--text-muted)] text-xs px-2 py-1 border border-[var(--border)] z-10">
             {active + 1} / {images.length}
           </span>
         )}
@@ -118,13 +117,19 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`relative flex-shrink-0 w-20 aspect-[4/3] overflow-hidden border transition-all bg-[var(--bg-card-2)] ${
+              className={`relative flex-shrink-0 w-20 aspect-[4/3] overflow-hidden border transition-all ${
                 i === active
                   ? "border-[var(--gold)] opacity-100"
                   : "border-[var(--border)] opacity-50 hover:opacity-80"
               }`}
             >
-              <Image src={img} alt="" fill className="object-cover" sizes="160px" quality={60} />
+              <Image
+                src={img}
+                alt=""
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
             </button>
           ))}
         </div>
@@ -161,7 +166,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             </div>
           </div>
 
-          {/* Image area */}
+          {/* Image area — keep native img for zoom/pan transform support */}
           <div
             className="flex-1 relative overflow-hidden flex items-center justify-center"
             style={{ cursor: zoom > 1 ? (dragging ? "grabbing" : "grab") : "default" }}
@@ -180,6 +185,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             onMouseUp={() => setDragging(false)}
             onMouseLeave={() => setDragging(false)}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={images[active]}
               alt={alt}
@@ -191,7 +197,6 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
               }}
             />
 
-            {/* Side navigation arrows */}
             {images.length > 1 && (
               <>
                 <button
@@ -210,18 +215,18 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             )}
           </div>
 
-          {/* Thumbnail strip */}
+          {/* Lightbox thumbnails */}
           {images.length > 1 && (
             <div className="flex gap-2 px-6 py-4 overflow-x-auto border-t border-white/10 shrink-0">
               {images.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  className={`flex-shrink-0 w-16 aspect-[4/3] overflow-hidden border-2 transition-all ${
+                  className={`relative flex-shrink-0 w-16 aspect-[4/3] overflow-hidden border-2 transition-all ${
                     i === active ? "border-[var(--gold)] opacity-100" : "border-transparent opacity-40 hover:opacity-70"
                   }`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  <Image src={img} alt="" fill sizes="64px" className="object-cover" />
                 </button>
               ))}
             </div>
