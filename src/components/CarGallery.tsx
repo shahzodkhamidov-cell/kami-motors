@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Expand } from "lucide-react";
-import { imgUrl } from "@/lib/utils";
 
 interface CarGalleryProps {
   images: string[];
@@ -69,11 +69,14 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
     <>
       {/* Main image */}
       <div className="relative aspect-[16/10] bg-[var(--bg-card-2)] border border-[var(--border)] overflow-hidden group">
-        <img
-          src={imgUrl(images[active], 1200, 80)}
+        <Image
+          src={images[active]}
           alt={alt}
-          className="w-full h-full object-cover"
-          loading="eager"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 66vw, 900px"
+          priority
+          quality={80}
         />
         {/* Expand button */}
         <button
@@ -115,13 +118,13 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`relative flex-shrink-0 w-20 aspect-[4/3] overflow-hidden border transition-all ${
+              className={`relative flex-shrink-0 w-20 aspect-[4/3] overflow-hidden border transition-all bg-[var(--bg-card-2)] ${
                 i === active
                   ? "border-[var(--gold)] opacity-100"
                   : "border-[var(--border)] opacity-50 hover:opacity-80"
               }`}
             >
-              <img src={imgUrl(img, 160, 60)} alt="" className="w-full h-full object-cover" />
+              <Image src={img} alt="" fill className="object-cover" sizes="160px" quality={60} />
             </button>
           ))}
         </div>
@@ -178,7 +181,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
             onMouseLeave={() => setDragging(false)}
           >
             <img
-              src={imgUrl(images[active], 1600, 85)}
+              src={images[active]}
               alt={alt}
               draggable={false}
               className="max-h-full max-w-full object-contain select-none"
@@ -218,7 +221,7 @@ export default function CarGallery({ images, alt }: CarGalleryProps) {
                     i === active ? "border-[var(--gold)] opacity-100" : "border-transparent opacity-40 hover:opacity-70"
                   }`}
                 >
-                  <img src={imgUrl(img, 160, 60)} alt="" className="w-full h-full object-cover" />
+                  <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
                 </button>
               ))}
             </div>

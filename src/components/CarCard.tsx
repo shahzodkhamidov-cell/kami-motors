@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Gauge, Calendar, Fuel, TrendingDown } from "lucide-react";
 import { Car } from "@/types";
-import { formatCurrency, formatMileage, getSavingsPercent, imgUrl } from "@/lib/utils";
+import { formatCurrency, formatMileage, getSavingsPercent } from "@/lib/utils";
 import FinancingModal from "./FinancingModal";
 
 interface CarCardProps {
@@ -25,7 +25,7 @@ export default function CarCard({ car }: CarCardProps) {
         <div className="relative aspect-[16/10] bg-[var(--bg-card-2)] overflow-hidden">
           {mainImage ? (
             <Image
-              src={imgUrl(mainImage, 800, 75)}
+              src={mainImage}
               alt={`${car.year} ${car.make} ${car.model}`}
               fill
               className="object-cover"
