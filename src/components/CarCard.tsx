@@ -20,7 +20,7 @@ export default function CarCard({ car }: CarCardProps) {
 
   return (
     <>
-      <Link href={`/inventory/${car.id}`} className="car-card bg-[var(--bg-card)] border border-[var(--border)] flex flex-col group/card hover:border-[var(--gold)]/30 transition-colors">
+      <Link href={`/inventory/${car.id}`} className="car-card bg-[var(--bg-card)] border border-[var(--border)] flex flex-col hover:border-[var(--gold)]/30 transition-colors">
         {/* Image */}
         <div className="relative aspect-[16/10] bg-[var(--bg-card-2)] overflow-hidden">
           {mainImage ? (
