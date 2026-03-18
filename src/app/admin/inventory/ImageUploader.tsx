@@ -23,24 +23,24 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
       if (!imageFiles.length) return;
 
       setUploading(true);
+      const newUrls: string[] = [];
       try {
-        // Compress each file in the browser before uploading (max 3MB, 1400px)
-        const compressed = await Promise.all(
-          imageFiles.map((f) =>
-            imageCompression(f, {
-              maxSizeMB: 3,
-              maxWidthOrHeight: 1400,
-              useWebWorker: true,
-            })
-          )
-        );
+        for (const file of imageFiles) {
+          // Compress in browser before sending (keeps each request under Vercel's 4.5MB limit)
+          const compressed = await imageCompression(file, {
+            maxSizeMB: 3,
+            maxWidthOrHeight: 1400,
+            useWebWorker: true,
+          });
 
-        const fd = new FormData();
-        compressed.forEach((f) => fd.append("files", f));
-        const res = await fetch("/api/upload", { method: "POST", body: fd });
-        if (!res.ok) throw new Error("Upload failed");
-        const data = await res.json();
-        if (data.urls) onChange([...images, ...data.urls]);
+          const fd = new FormData();
+          fd.append("file", compressed);
+          const res = await fetch("/api/upload", { method: "POST", body: fd });
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (data.url) newUrls.push(data.url);
+        }
+        if (newUrls.length) onChange([...images, ...newUrls]);
       } finally {
         setUploading(false);
       }
