@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { Upload, X, Loader2, ImagePlus, GripVertical } from "lucide-react";
+import imageCompression from "browser-image-compression";
 
 interface ImageUploaderProps {
   images: string[];
@@ -23,8 +24,19 @@ export default function ImageUploader({ images, onChange }: ImageUploaderProps) 
 
       setUploading(true);
       try {
+        // Compress each file in the browser before uploading (max 3MB, 1400px)
+        const compressed = await Promise.all(
+          imageFiles.map((f) =>
+            imageCompression(f, {
+              maxSizeMB: 3,
+              maxWidthOrHeight: 1400,
+              useWebWorker: true,
+            })
+          )
+        );
+
         const fd = new FormData();
-        imageFiles.forEach((f) => fd.append("files", f));
+        compressed.forEach((f) => fd.append("files", f));
         const res = await fetch("/api/upload", { method: "POST", body: fd });
         if (!res.ok) throw new Error("Upload failed");
         const data = await res.json();
