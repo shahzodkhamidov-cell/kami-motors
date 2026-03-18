@@ -133,7 +133,7 @@ export default async function HomePage() {
           <div className="flex flex-wrap gap-10 border-t border-[var(--border)] pt-8">
             {[
               { label: "Cars Available", value: String(stats.available) },
-              { label: "Cars Sold", value: `${stats.sold}+` },
+              { label: "Cars Sold", value: `350+` },
               { label: "Max Savings", value: "40%" },
               ...(stats.comingSoon > 0 ? [{ label: "Coming Soon", value: String(stats.comingSoon) }] : []),
             ].map((s) => (

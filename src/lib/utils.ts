@@ -54,4 +54,3 @@ export const FUEL_TYPES = [
 export const TRANSMISSION_TYPES = ["Automatic", "Manual", "CVT"] as const;
 
 export const DRIVETRAIN_TYPES = ["FWD", "RWD", "AWD", "4WD"] as const;
-
