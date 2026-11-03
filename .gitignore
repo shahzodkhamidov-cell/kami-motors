@@ -49,3 +49,7 @@ next-env.d.ts
 *.db
 *.db-journal
 prisma/dev.db
+
+# cutout tool working files (downloaded photos and masks)
+/public/cutouts/.work/
+/public/cutouts/manual/
