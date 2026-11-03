@@ -17,16 +17,16 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+// Default for pages without a title of their own (the homepage sets its own in homepage/build.mjs)
 export const metadata: Metadata = {
-  title: "Kami Motors | Rebuilt Title Cars - Save Up To 40%",
+  title: "Used Cars Up to 40% Below Market in Metairie | Kami Motors",
   description:
-    "Quality rebuilt title vehicles at unbeatable prices in Metairie, LA. Save thousands compared to clean title cars. Browse inventory, compare prices, apply for financing.",
-  keywords:
-    "rebuilt title cars, salvage title, used cars, Metairie LA, New Orleans, affordable cars, financing",
+    "See today's cash prices: quality used cars in Metairie, LA, up to 40% below market. $0 dealer fees, $0 doc fee, financing available. Kami Motors (KMG AUTO LLC).",
   openGraph: {
-    title: "Kami Motors | Rebuilt Title Cars - Save Up To 40%",
-    description: "Quality rebuilt title vehicles at unbeatable prices in Metairie, LA.",
+    title: "Drive More, Pay Less | Kami Motors, Metairie LA",
+    description: "Quality used cars in Metairie, LA, up to 40% below market. $0 dealer fees, $0 doc fee.",
     type: "website",
+    siteName: "Kami Motors",
   },
 };
 

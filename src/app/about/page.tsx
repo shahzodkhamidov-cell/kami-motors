@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Shield, TrendingDown, Award, Phone, MapPin, Clock, CheckCircle, ArrowRight } from "lucide-react";
 
 export const metadata = {
-  title: "About Kami Motors | Rebuilt Title Specialists in Metairie, LA",
+  title: "About Kami Motors (KMG AUTO LLC) | Metairie, LA",
+  description:
+    "Kami Motors (KMG AUTO LLC) sells inspected rebuilt-title used cars in Metairie, LA, up to 40% below clean-title market value, with $0 dealer fees and $0 doc fee.",
 };
 
 export default function AboutPage() {
