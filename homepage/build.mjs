@@ -18,9 +18,27 @@ const swap = (from, to) => {
   html = html.replace(from, to);
 };
 
-const title = "Kami Motors | Rebuilt Title Cars - Save Up To 40%";
+// What Google shows: the title leads with what people search for, the description earns the click.
+const title = "Used Cars Up to 40% Below Market in Metairie | Kami Motors";
 const description =
-  "Quality rebuilt title vehicles at unbeatable prices in Metairie, LA. Save thousands compared to clean title cars. Browse inventory, compare prices, apply for financing.";
+  "See today's cash prices: quality used cars in Metairie, LA, up to 40% below market. $0 dealer fees, $0 doc fee, financing available. Kami Motors (KMG AUTO LLC).";
+// What shows when someone shares the link (Facebook, texts)
+const shareTitle = "Drive More, Pay Less | Kami Motors, Metairie LA";
+// Business details for Google: the trading name, the registered LLC, and how to reach the lot
+const business = {
+  "@context": "https://schema.org",
+  "@type": "AutoDealer",
+  name: "Kami Motors",
+  legalName: "KMG AUTO LLC",
+  alternateName: "KMG AUTO",
+  slogan: "Drive More, Pay Less",
+  url: "https://www.kamimotorsgroup.com/",
+  telephone: "+1-504-294-3995",
+  address: { "@type": "PostalAddress", addressLocality: "Metairie", addressRegion: "LA", postalCode: "70001", addressCountry: "US" },
+  areaServed: "New Orleans metro area",
+  openingHours: "Mo-Sa 09:00-19:00",
+};
+const attr = (t) => t.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 
 // preview-only bits out, the site's own title and sharing details in
 swap("<title>Kami Motors Homepage</title>\n", "");
@@ -37,12 +55,15 @@ const head = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title>
-<meta name="description" content="${description}">
-<meta name="keywords" content="rebuilt title cars, salvage title, used cars, Metairie LA, New Orleans, affordable cars, financing">
-<meta property="og:title" content="${title}">
-<meta property="og:description" content="Quality rebuilt title vehicles at unbeatable prices in Metairie, LA.">
+<meta name="description" content="${attr(description)}">
+<link rel="canonical" href="https://www.kamimotorsgroup.com/">
+<meta property="og:title" content="${shareTitle}">
+<meta property="og:description" content="${attr(description)}">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://www.kamimotorsgroup.com/">
+<meta property="og:site_name" content="Kami Motors">
 <link rel="icon" href="/favicon.ico">
+<script type="application/ld+json">${JSON.stringify(business)}</script>
 `;
 html = head + html + "\n</html>\n";
 
