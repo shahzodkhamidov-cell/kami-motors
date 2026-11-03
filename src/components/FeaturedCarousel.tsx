@@ -45,14 +45,15 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
           {/* Left — image */}
           <div className="relative bg-[var(--bg-card)] overflow-hidden min-h-[300px] lg:min-h-[560px]">
             {car.heroImage ? (
-              // the dealer's own clean-background picture: the whole car, standing on a soft shadow
+              // the dealer's own clean-background picture: the whole car, standing on a soft shadow.
+              // A slight shadow around the car softens small rough spots along the cutout's edge.
               <div className="absolute inset-x-6 top-16 bottom-10 lg:inset-x-10 lg:top-20 lg:bottom-16">
                 <div className="absolute left-[10%] right-[10%] bottom-[3%] h-[9%] rounded-[50%] bg-black/45 blur-xl" />
                 <Image
                   src={car.heroImage}
                   alt={`${car.year} ${car.make} ${car.model}`}
                   fill
-                  className="object-contain object-bottom"
+                  className="object-contain object-bottom [filter:drop-shadow(0_0_1.5px_rgba(0,0,0,0.3))_drop-shadow(0_5px_12px_rgba(0,0,0,0.18))]"
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
