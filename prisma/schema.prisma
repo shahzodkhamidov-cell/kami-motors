@@ -28,6 +28,7 @@ model Car {
   numberOfOwners  Int?
   features        String   @default("[]")
   images          String   @default("[]")
+  heroImage       String?  // optional clean-background (transparent) image for the homepage carousel, featured cars only
   status          String   @default("available")
   featured        Boolean  @default(false)
   published       Boolean  @default(false)
