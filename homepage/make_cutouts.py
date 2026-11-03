@@ -357,9 +357,8 @@ def own_cutout(data):
         im.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
     px = np.asarray(im).astype(np.float32) / 255
     a = px[..., 3]
-    rim = np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]])
-    if (a < .05).mean() < .08 or (rim < .05).mean() < .85:
-        return None, 'the background is not transparent'
+    if (a < .05).mean() < .05:          # a cutout has empty space around the car, even when cropped tight
+        return None, 'the background is not transparent (saved with a solid background)'
     m = a > .5
     if not m.any():
         return None, 'the image is empty'

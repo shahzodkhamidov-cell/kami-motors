@@ -1055,10 +1055,9 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       const c = document.createElement('canvas'); c.width = Math.round(W * k); c.height = Math.round(H * k);
       const g = c.getContext('2d'); g.drawImage(img, 0, 0, c.width, c.height);
       const d = g.getImageData(0, 0, c.width, c.height).data;
-      let rim = 0, clear = 0;
-      for (let x = 0; x < c.width; x++) for (const y of [0, c.height - 1]) { rim++; clear += d[(y * c.width + x) * 4 + 3] < 13; }
-      for (let y = 0; y < c.height; y++) for (const x of [0, c.width - 1]) { rim++; clear += d[(y * c.width + x) * 4 + 3] < 13; }
-      if (clear < rim * .85) return 'opaque';
+      let clear = 0;                        // a cutout has empty space around the car, even when cropped tight
+      for (let i = 3; i < d.length; i += 4) clear += d[i] < 13;
+      if (clear < c.width * c.height * .05) return 'opaque';
       let x0 = c.width, y0 = c.height, x1 = -1, y1 = -1;
       for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++)
         if (d[(y * c.width + x) * 4 + 3] > 24) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; y1 = y; }

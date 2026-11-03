@@ -13,6 +13,10 @@ const MIN_WIDTH = 800; // px across the car itself; smaller pictures look soft i
 const MAX_WIDTH = 1400; // same as listing photos (the upload route resizes to this anyway)
 const MAX_BYTES = 4.3 * 1024 * 1024; // stays under Vercel's 4.5MB request limit
 
+const NOT_TRANSPARENT =
+  "This picture still has a solid background behind the car, so it can't be used. If you removed the background in " +
+  "Canva, download it again as PNG with \"Transparent background\" ticked (a Canva Pro option), then upload that file.";
+
 // Check the picture has a transparent background, then crop it to the car with even margins
 // (4% each side, 3% on top, 9% below) so every carousel image sits at the same size.
 async function prepare(file: File): Promise<Blob> {
@@ -35,12 +39,11 @@ async function prepare(file: File): Promise<Blob> {
   const d = ctx.getImageData(0, 0, W, H).data;
   const alpha = (x: number, y: number) => d[(y * W + x) * 4 + 3];
 
-  let rim = 0, clear = 0;
-  for (let x = 0; x < W; x++) for (const y of [0, H - 1]) { rim++; if (alpha(x, y) < 13) clear++; }
-  for (let y = 0; y < H; y++) for (const x of [0, W - 1]) { rim++; if (alpha(x, y) < 13) clear++; }
-  if (clear < rim * 0.85) {
-    throw new Error("The background is not transparent. Remove it first, then save as PNG or WebP.");
-  }
+  // a real cutout has empty (transparent) space around the car, even when cropped tight;
+  // a picture saved with its background filled in (white, say) has none
+  let clear = 0;
+  for (let i = 3; i < d.length; i += 4) if (d[i] < 13) clear++;
+  if (clear < W * H * 0.05) throw new Error(NOT_TRANSPARENT);
 
   let x0 = W, y0 = H, x1 = -1, y1 = -1;
   for (let y = 0; y < H; y++)
