@@ -25,9 +25,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const car = await getCar(id);
   if (!car) return {};
+  const name = `${car.year} ${car.make} ${car.model}${car.trim ? ` ${car.trim}` : ""}`;
   return {
-    title: `${car.year} ${car.make} ${car.model} | Kami Motors`,
-    description: `${car.year} ${car.make} ${car.model} for ${formatCurrency(car.price)}. Save ${formatCurrency(car.cleanTitleValue - car.price)} vs clean title.`,
+    title: `${car.year} ${car.make} ${car.model} for ${formatCurrency(car.price)} in Metairie | Kami Motors`,
+    description: `${name}, ${formatMileage(car.mileage)}, ${formatCurrency(car.price)} cash, ${formatCurrency(car.cleanTitleValue - car.price)} below clean-title market value. $0 dealer fees, $0 doc fee. Kami Motors, Metairie, LA.`,
   };
 }
 
