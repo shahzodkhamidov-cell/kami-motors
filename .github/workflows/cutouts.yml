@@ -3,13 +3,19 @@
 # Every hour this reads the live listings, makes a clean-background cutout for any featured car that does not have a
 # current one (new featured car, changed photos, or a newly uploaded Homepage Carousel Image), drops cutouts of cars
 # that are no longer featured, and commits the result to main. Vercel then deploys it. Hours with nothing new end
-# without a commit. It can also be started by hand: GitHub → Actions → Carousel cutouts → Run workflow.
+# without a commit. It can also be started by hand: GitHub → Actions → Carousel cutouts → Run workflow, optionally with
+# a listing id to remake that one car's cutout from scratch.
 name: Carousel cutouts
 
 on:
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
+    inputs:
+      redo:
+        description: "Listing id of a car whose cutout should be made again from scratch (optional)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -50,7 +56,13 @@ jobs:
           restore-keys: cutouts-work-
 
       - name: Make cutouts for featured cars
-        run: python homepage/make_cutouts.py --api https://www.kamimotorsgroup.com/api/cars --out public/cutouts
+        env:
+          REDO: ${{ github.event.inputs.redo }}
+        run: |
+          python homepage/make_cutouts.py --api https://www.kamimotorsgroup.com/api/cars --out public/cutouts
+          if [ -n "$REDO" ]; then
+            python homepage/make_cutouts.py --api https://www.kamimotorsgroup.com/api/cars --out public/cutouts --only "$REDO" --force
+          fi
 
       - name: Commit new cutouts
         run: |
