@@ -96,6 +96,7 @@ export async function POST(request: NextRequest) {
       numberOfOwners: body.numberOfOwners != null ? Number(body.numberOfOwners) : null,
       features: JSON.stringify(body.features || []),
       images: JSON.stringify(body.images || []),
+      heroImage: body.heroImage || null,
       status: body.status || "available",
       featured: body.featured || false,
       published: body.published || false,

@@ -18,6 +18,7 @@ export interface Car {
   numberOfOwners?: number | null;
   features: string[];
   images: string[];
+  heroImage?: string | null;
   status: string;
   featured: boolean;
   published: boolean;

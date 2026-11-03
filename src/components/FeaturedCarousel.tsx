@@ -44,7 +44,20 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
 
           {/* Left — image */}
           <div className="relative bg-[var(--bg-card)] overflow-hidden min-h-[300px] lg:min-h-[560px]">
-            {car.images[0] ? (
+            {car.heroImage ? (
+              // the dealer's own clean-background picture: the whole car, standing on a soft shadow
+              <div className="absolute inset-x-6 top-16 bottom-10 lg:inset-x-10 lg:top-20 lg:bottom-16">
+                <div className="absolute left-[10%] right-[10%] bottom-[3%] h-[9%] rounded-[50%] bg-black/45 blur-xl" />
+                <Image
+                  src={car.heroImage}
+                  alt={`${car.year} ${car.make} ${car.model}`}
+                  fill
+                  className="object-contain object-bottom"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            ) : car.images[0] ? (
               <Image
                 src={car.images[0]}
                 alt={`${car.year} ${car.make} ${car.model}`}
@@ -209,7 +222,9 @@ export default function FeaturedCarousel({ cars }: FeaturedCarouselProps) {
                     : "border-transparent opacity-50 hover:opacity-75"
                 }`}
               >
-                {c.images[0] ? (
+                {c.heroImage ? (
+                  <Image src={c.heroImage} alt="" fill className="object-contain bg-[var(--bg-card)] p-1" sizes="96px" />
+                ) : c.images[0] ? (
                   <Image src={c.images[0]} alt="" fill className="object-cover" sizes="96px" />
                 ) : (
                   <div className="w-full h-full bg-[var(--bg-card-2)] flex items-center justify-center text-[var(--text-dim)] text-xs">

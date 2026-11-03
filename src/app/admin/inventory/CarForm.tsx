@@ -4,6 +4,7 @@ import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Search, Plus, X, Globe } from "lucide-react";
 import ImageUploader from "./ImageUploader";
+import HeroImageUploader from "./HeroImageUploader";
 import { BODY_TYPES, FUEL_TYPES, TRANSMISSION_TYPES, DRIVETRAIN_TYPES } from "@/lib/utils";
 import { Car } from "@/types";
 
@@ -33,6 +34,7 @@ const defaultValues = {
   featured: false,
   features: [] as string[],
   images: [] as string[],
+  heroImage: null as string | null,
 };
 
 export default function CarForm({ car, mode }: CarFormProps) {
@@ -66,6 +68,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
         featured: car.featured,
         features: car.features,
         images: car.images,
+        heroImage: car.heroImage ?? null,
       };
     }
     return defaultValues;
@@ -345,6 +348,19 @@ export default function CarForm({ car, mode }: CarFormProps) {
         </p>
         <ImageUploader images={form.images} onChange={(imgs) => set("images", imgs)} />
       </div>
+
+      {/* Homepage carousel image (featured cars only) */}
+      {form.featured && (
+        <div className={sectionClass}>
+          <h2 className={sectionTitle} style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "0.05em" }}>Homepage Carousel Image</h2>
+          <p className="text-[var(--text-dim)] text-xs mb-4">
+            Optional. Upload a picture of the whole car with the background removed (PNG or WebP with a transparent
+            background, front three-quarter view, at least 800px wide). It replaces the main photo in the homepage
+            carousel. Leave empty to use the main photo.
+          </p>
+          <HeroImageUploader value={form.heroImage} onChange={(url) => set("heroImage", url)} />
+        </div>
+      )}
 
       {error && (
         <p className="text-red-500 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3">{error}</p>
