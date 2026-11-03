@@ -1,0 +1,66 @@
+# Homepage carousel cutouts, kept up to date automatically.
+#
+# Every hour this reads the live listings, makes a clean-background cutout for any featured car that does not have a
+# current one (new featured car, changed photos, or a newly uploaded Homepage Carousel Image), drops cutouts of cars
+# that are no longer featured, and commits the result to main. Vercel then deploys it. Hours with nothing new end
+# without a commit. It can also be started by hand: GitHub → Actions → Carousel cutouts → Run workflow.
+name: Carousel cutouts
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: carousel-cutouts
+  cancel-in-progress: false
+
+jobs:
+  cutouts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: .github/workflows/cutouts.yml
+
+      - name: Install the cutout tool
+        run: pip install "rembg[cpu]==2.0.61" onnxruntime==1.19.2 pillow==11.3.0 numpy==2.0.2 scipy==1.13.1
+
+      # the segmentation model (about 970 MB) is downloaded once and kept between runs
+      - name: Model cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.u2net
+          key: u2net-birefnet-general
+
+      # downloaded photos and masks, so a car is never segmented twice
+      - name: Work cache
+        uses: actions/cache@v4
+        with:
+          path: public/cutouts/.work
+          key: cutouts-work-${{ github.run_id }}
+          restore-keys: cutouts-work-
+
+      - name: Make cutouts for featured cars
+        run: python homepage/make_cutouts.py --api https://www.kamimotorsgroup.com/api/cars --out public/cutouts
+
+      - name: Commit new cutouts
+        run: |
+          git add -A public/cutouts public/cutouts.js
+          if git diff --cached --quiet; then
+            echo "Nothing new."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update homepage carousel cutouts"
+          git pull --rebase --quiet   # in case something else was pushed meanwhile
+          git push
