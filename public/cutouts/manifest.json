@@ -79,86 +79,6 @@
   ],
   "own_id": null
  },
- "cmv3ah99c0000rmaq0et82142": {
-  "status": "ready",
-  "src": "cutouts/cmv3ah99c0000rmaq0et82142.webp",
-  "w": 1046,
-  "h": 577,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690074674-u8bhfgbjzk.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690074674-u8bhfgbjzk.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690087892-hivmggubvee.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690102496-vqjaqinqwd.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690104977-4nf0gqw2ees.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690106813-muc9ps3xqu.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791690108330-lsodekgumob.webp"
-  ],
-  "own_id": null
- },
- "cmv39pfmw000056hokk39ijiz": {
-  "status": "ready",
-  "src": "cutouts/cmv39pfmw000056hokk39ijiz.webp",
-  "w": 1026,
-  "h": 707,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689513084-oixu3s8zu2.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689513084-oixu3s8zu2.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689514398-ozop8afwb9s.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689515700-hy1bt05b0tp.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689517036-b52ey9sd1m.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689518275-zpjuoqxn7q.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791689519351-7vywztvhhzv.webp"
-  ],
-  "own_id": null
- },
- "cmv39d4m5000011z8n7pmszkp": {
-  "status": "ready",
-  "src": "cutouts/cmv39d4m5000011z8n7pmszkp.webp",
-  "w": 1008,
-  "h": 553,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687710818-4calx3jl7mm.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687710818-4calx3jl7mm.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687732050-m8izeorblae.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687754986-ax4z0rzojh.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687774319-1vnwa343obi.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687794234-7joyu0ovfxb.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687816624-z2clkb31qnb.webp"
-  ],
-  "own_id": null
- },
- "cmv38eu3z0001hz4ldbi9fam0": {
-  "status": "ready",
-  "src": "cutouts/cmv38eu3z0001hz4ldbi9fam0.webp",
-  "w": 1047,
-  "h": 571,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687308281-cr5iefb2ftd.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687308281-cr5iefb2ftd.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687315299-77p43u9dsoe.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687323605-rdvhtcc1oti.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687330062-1id9o29hc6f.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687335912-sf2ygwy5dxl.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687341754-cadtd338xsi.webp"
-  ],
-  "own_id": null
- },
  "cmv389hkk0000hz4lxburjblq": {
   "status": "ready",
   "src": "cutouts/cmv389hkk0000hz4lxburjblq.webp",
@@ -176,86 +96,6 @@
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687095602-llfl8g3txc.webp",
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687096529-srt4kpgt4p.webp",
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791687097881-bc6yveufw5h.webp"
-  ],
-  "own_id": null
- },
- "cmuumezw000004tse8iheacc4": {
-  "status": "ready",
-  "src": "cutouts/cmuumezw000004tse8iheacc4.webp",
-  "w": 830,
-  "h": 632,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166693025-qgs8bcqozdq.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166693025-qgs8bcqozdq.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166687186-0xuvk27y3s8.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166688115-5ve4pa5xphq.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166691456-37fos3tps2s.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166682707-eoigfpczkym.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791166681477-w1hma30s69d.webp"
-  ],
-  "own_id": null
- },
- "cmuul8g1c0000g098vrb0dfh7": {
-  "status": "ready",
-  "src": "cutouts/cmuul8g1c0000g098vrb0dfh7.webp",
-  "w": 1010,
-  "h": 683,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164689818-9sn7t5ve7cc.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164689818-9sn7t5ve7cc.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164691309-g6bdotz957c.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164692291-nipsdsstvzr.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164693220-2e4vnsi9wcq.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164695752-5ybm048vlb8.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791164696931-5sufw109m9e.webp"
-  ],
-  "own_id": null
- },
- "cmuujjlse0000yyghsxftq09m": {
-  "status": "ready",
-  "src": "cutouts/cmuujjlse0000yyghsxftq09m.webp",
-  "w": 1074,
-  "h": 549,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161438046-ehjyn9ajjyj.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161438046-ehjyn9ajjyj.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161439394-ralejg5l1q9.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161440729-1eg49xntpzhj.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161441961-ka3ivk1qkjj.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161443278-lgmxl46363p.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791161444432-doxufdwhota.webp"
-  ],
-  "own_id": null
- },
- "cmuuiuogh00009mb39f1v1ekz": {
-  "status": "ready",
-  "src": "cutouts/cmuuiuogh00009mb39f1v1ekz.webp",
-  "w": 1010,
-  "h": 628,
-  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160688876-zhnhgswn7wn.webp",
-  "photo": 1,
-  "model": "birefnet-general",
-  "made": "2026-11-02",
-  "v": 4,
-  "tried": [
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160688876-zhnhgswn7wn.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160690366-jgv4bhmf7p.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160691635-61vv5thz2u.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160692832-rjxkm2hk3fd.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160694173-ifdfk03yt0g.webp",
-   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1791160695287-al6n73v31se.webp"
   ],
   "own_id": null
  },
@@ -377,6 +217,26 @@
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1779245376769-x49nbjss3pc.webp",
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1779245377952-wb9j4wplem.webp",
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1779245380539-zzfwo2tfdk.webp"
+  ],
+  "own_id": null
+ },
+ "cmw066v6u0000kxjzdtw0a3a0": {
+  "status": "ready",
+  "src": "cutouts/cmw066v6u0000kxjzdtw0a3a0.webp",
+  "w": 1096,
+  "h": 488,
+  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679001338-nwicicig81g.webp",
+  "photo": 1,
+  "model": "birefnet-general",
+  "made": "2026-11-02",
+  "v": 4,
+  "tried": [
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679001338-nwicicig81g.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679003055-9vy1bnwobhs.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679004584-qm9xlqr5kg.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679005893-hbfnlby661w.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679007552-g68f7jpgwz.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793679009147-suqahu7z0cb.webp"
   ],
   "own_id": null
  }
