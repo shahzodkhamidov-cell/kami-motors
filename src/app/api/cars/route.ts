@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth";
+import { vinTakenResponse, isVinConflict } from "@/lib/vin";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -74,11 +75,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
+  const vin = String(body.vin ?? "").trim().toUpperCase();
+  const taken = await vinTakenResponse(vin);
+  if (taken) return taken;
+
   let car;
   try {
     car = await prisma.car.create({
       data: {
-      vin: body.vin,
+      vin,
       year: Number(body.year),
       make: body.make,
       model: body.model,
@@ -103,6 +108,8 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (err) {
+    // saved by someone else a moment ago
+    if (isVinConflict(err)) return (await vinTakenResponse(vin))!;
     console.error("Failed to create car:", err);
     const message = err instanceof Error ? err.message : "Database error";
     return NextResponse.json({ error: message }, { status: 500 });

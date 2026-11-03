@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { auth } from "@/lib/auth";
+import { vinTakenResponse } from "@/lib/vin";
 
 export async function GET(
   _request: NextRequest,
@@ -27,10 +28,14 @@ export async function PUT(
   const { id } = await params;
   const body = await request.json();
 
+  const vin = String(body.vin ?? "").trim().toUpperCase();
+  const taken = await vinTakenResponse(vin, id);
+  if (taken) return taken;
+
   const car = await prisma.car.update({
     where: { id },
     data: {
-      vin: body.vin,
+      vin,
       year: Number(body.year),
       make: body.make,
       model: body.model,

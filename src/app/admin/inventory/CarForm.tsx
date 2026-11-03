@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Loader2, Search, Plus, X, Globe } from "lucide-react";
 import ImageUploader from "./ImageUploader";
 import HeroImageUploader from "./HeroImageUploader";
@@ -42,6 +43,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
   const publishRef = useRef(false);
   const [loading, setLoading] = useState(false);
   const [vinLoading, setVinLoading] = useState(false);
+  const [existingId, setExistingId] = useState("");
   const [error, setError] = useState("");
   const [newFeature, setNewFeature] = useState("");
 
@@ -119,6 +121,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
     publishRef.current = false;
     setLoading(true);
     setError("");
+    setExistingId("");
 
     const payload = {
       ...form,
@@ -143,6 +146,7 @@ export default function CarForm({ car, mode }: CarFormProps) {
         try {
           const data = await res.json();
           errMsg = data.error || errMsg;
+          if (data.existingId) setExistingId(data.existingId);
         } catch {}
         throw new Error(errMsg);
       }
@@ -363,7 +367,17 @@ export default function CarForm({ car, mode }: CarFormProps) {
       )}
 
       {error && (
-        <p className="text-red-500 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3">{error}</p>
+        <p className="text-red-500 text-sm bg-red-500/10 border border-red-500/20 px-4 py-3">
+          {error}
+          {existingId && (
+            <>
+              {" "}
+              <Link href={`/admin/inventory/${existingId}/edit`} className="underline font-medium">
+                Open that listing
+              </Link>
+            </>
+          )}
+        </p>
       )}
 
       <div className="flex flex-wrap gap-3">
