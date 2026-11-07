@@ -282,5 +282,26 @@
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793716424489-n4yzb7f2ul.webp",
    "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1793716425817-ne780xul3l.webp"
   ]
+ },
+ "cmw5tksx10000t1q2qog2qu2f": {
+  "status": "ready",
+  "src": "cutouts/cmw5tksx10000t1q2qog2qu2f.webp",
+  "w": 1400,
+  "h": 775,
+  "from": "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020651387-zfilr96su9.webp",
+  "photo": null,
+  "own": true,
+  "own_id": "f7e0f7baebdde06b",
+  "model": "own",
+  "made": "2026-11-07",
+  "v": 4,
+  "tried": [
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020579458-oivrvjfrd0o.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020580838-jebftpmc3x.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020582034-ayxus0fime.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020583089-kgauqnjoxmg.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020584289-5vl5ocrtzxf.webp",
+   "https://jgefcxlxalngakklgjtx.supabase.co/storage/v1/object/public/car-images/1794020585387-xzwnodpk52n.webp"
+  ]
  }
 }
